@@ -1217,7 +1217,7 @@
 
 // export default Paper;
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import "./Paper.css";
 import PaperHeader from "../../Components/PaperHeader/PaperHeader";
 import RightSidebar from "../../Components/RightSidebar/RightSidebar";
@@ -1732,7 +1732,8 @@ Chemistry
             onClick={onClickNext}
             // disabled={!selectedAnswers[activeQuestion]}
           >
-            {activeQuestion === Qimages.length - 1 ? "Submit" : "Save & Next"}
+            Save & Next
+            {/* {activeQuestion === Qimages.length - 1 ? "Submit" : "Save & Next"} */}
             <i className="fa-solid fa-angles-right"></i>
           </button>
         </div>
