@@ -1485,6 +1485,12 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
     setOpensubject_1(false)
   }
 
+
+
+  const handleQuestionSelect = (questionNumber) => {
+    setCurrentQuestionIndex(questionNumber - 1);
+};
+
   return (
     <div className="main">
       <div className="sub-main">
@@ -1727,7 +1733,7 @@ Chemistry
         </div>
       </div>
       <div className="rightsidebar">
-        <RightSidebar   />
+        <RightSidebar onQuestionSelect={handleQuestionSelect} questionStatus={questionStatus}  />
        
       </div>
     </div>
