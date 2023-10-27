@@ -1288,56 +1288,45 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1,testId }) => {
   // }, []); // Empty dependency array to fetch data only once when the component mounts
 
 
-  useEffect(() => {
-<<<<<<< HEAD
-    // Define a function to fetch questions
-    const fetchQuestions = async () => {
-      try {
-        const response = await axios.get(`http://localhost:10000/questions/${testId}`);
-        setQuestions(response.data);
-      } catch (error) {
-        console.error(error);
-=======
-    // Fetch data for Qimages (first image from each set of IDs 1-6, 7-12, ...)
-    const fetchQImages = async () => {
-      let fetchedQImages = [];
+  // useEffect(() => {
+  //   // Fetch data for Qimages (first image from each set of IDs 1-6, 7-12, ...)
+  //   const fetchQImages = async () => {
+  //     let fetchedQImages = [];
 
-      for (let i = 1; i <= 1000; i += 6) {
-        // Assuming there are 100 sets of images
-        try {
-          const response = await fetch(`http://localhost:2000/images/${i}`);
-          const data = await response.json();
-          if (data.length > 0) {
-            fetchedQImages.push(data[0]); // Add only the first image from each set
-          }
-        } catch (error) {
-          console.error("Error fetching Qimages:", error);
-        }
->>>>>>> Harshitha-Practice-1
-      }
-    };
+  //     for (let i = 1; i <= 1000; i += 6) {
+  //       // Assuming there are 100 sets of images
+  //       try {
+  //         const response = await fetch(`http://localhost:2000/images/${i}`);
+  //         const data = await response.json();
+  //         if (data.length > 0) {
+  //           fetchedQImages.push(data[0]); // Add only the first image from each set
+  //         }
+  //       } catch (error) {
+  //         console.error("Error fetching Qimages:", error);
+  //       }
+  //     }
+  //   };
 
-    // Call the function to fetch questions when the component mounts
-    fetchQuestions();
-  }, [testId]);
+  //   // Call the function to fetch questions when the component mounts
+  //   fetchQuestions();
+  // }, [testId]);
 
-<<<<<<< HEAD
-=======
-      for (let i = 1; i <= 1000; i += 6) {
-        // Assuming there are 100 sets of images
-        try {
-          for (let j = i + 1; j <= i + 4; j++) {
-            const response = await fetch(`http://localhost:2000/images/${j}`);
-            const data = await response.json();
-            if (data.length > 0) {
-              fetchedOPTImages.push(data[0]); // Add the second to fifth images from each set
-            }
-          }
-        } catch (error) {
-          console.error("Error fetching OPTimages:", error);
-        }
-      }
->>>>>>> Harshitha-Practice-1
+
+      // for (let i = 1; i <= 1000; i += 6) {
+      //   // Assuming there are 100 sets of images
+      //   try {
+      //     for (let j = i + 1; j <= i + 4; j++) {
+      //       const response = await fetch(`http://localhost:2000/images/${j}`);
+      //       const data = await response.json();
+      //       if (data.length > 0) {
+      //         fetchedOPTImages.push(data[0]); // Add the second to fifth images from each set
+      //       }
+      //     }
+      //   } catch (error) {
+      //     console.error("Error fetching OPTimages:", error);
+      //   }
+      // }
+
 
 
   const [timers, setTimers] = useState(new Array(questions.length).fill(0));
@@ -1786,12 +1775,12 @@ Chemistry
             onClick={onClickNext}
             // disabled={!selectedAnswers[activeQuestion]}
           >
-<<<<<<< HEAD
+
             {activeQuestion === questions.length - 1 ? "Submit" : "Save & Next"}
-=======
+
             Save & Next
             {/* {activeQuestion === Qimages.length - 1 ? "Submit" : "Save & Next"} */}
->>>>>>> Harshitha-Practice-1
+
             <i className="fa-solid fa-angles-right"></i>
           </button>
         </div>
