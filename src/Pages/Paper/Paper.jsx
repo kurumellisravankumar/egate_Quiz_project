@@ -1489,7 +1489,12 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
 
   const handleQuestionSelect = (questionNumber) => {
     setCurrentQuestionIndex(questionNumber - 1);
+    setActiveQuestion(questionNumber - 1);
 };
+
+
+
+
 
   return (
     <div className="main">
