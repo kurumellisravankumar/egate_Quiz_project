@@ -1727,7 +1727,8 @@ Chemistry
             onClick={onClickNext}
             // disabled={!selectedAnswers[activeQuestion]}
           >
-            {activeQuestion === Qimages.length - 1 ? "Submit" : "Save & Next"}
+            Save & Next
+            {/* {activeQuestion === Qimages.length - 1 ? "Submit" : "Save & Next"} */}
             <i className="fa-solid fa-angles-right"></i>
           </button>
         </div>
