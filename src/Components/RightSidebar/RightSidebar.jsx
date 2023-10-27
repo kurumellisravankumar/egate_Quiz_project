@@ -118,6 +118,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import popup from 'react-popup'
 import './RightSidebar.css'
 
+import PropTypes from 'prop-types'
+
 
 
 
@@ -132,13 +134,46 @@ const RightSidebar = ({ onQuestionSelect, questionStatus, seconds }) => {
 
 
     const [answeredQuestions, setAnsweredQuestions] = useState([]);
+    const [isPaused, setIsPaused] = useState(false);
 
     const handleButtonClick = (questionNumber) => {
         onQuestionSelect(questionNumber);
-        setAnsweredQuestions([...answeredQuestions, questionNumber])
+        setAnsweredQuestions([...answeredQuestions, questionNumber]);
+        setIsPaused(false);
     }
 
 
+     
+    RightSidebar.propTypes = {
+        onQuestionSelect: PropTypes.func.isRequired,
+        questionStatus: PropTypes.arrayOf(PropTypes.string),
+        onResumeTimer: PropTypes.func.isRequired, // Define the prop type for onResumeTimer
+    };
+
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [timers, setTimers] = useState(new Array().fill(0));
+    const [timer, setTimer] = useState(0);
+
+    useEffect(() => {
+        // Set the timer to the saved value for the current question
+        setTimer(timers[currentQuestionIndex] || 0);
+
+        let interval;
+        // interval = setInterval(() => {
+        //     setTimer(prevTimer => prevTimer + 1);
+        // }, 1000);
+
+        if (!isPaused) {
+            interval = setInterval(() => {
+                setTimer(prevTimer => prevTimer + 1);
+            }, 1000);
+        }
+
+        // Clear the interval when the component unmounts or when the user moves to the next question
+        return () => {
+            clearInterval(interval);
+        };
+    }, [currentQuestionIndex, timers, isPaused]);
 
     const renderList = buttons.map((item, index) => {
         let className = 'quesAns-btn';
@@ -146,7 +181,7 @@ const RightSidebar = ({ onQuestionSelect, questionStatus, seconds }) => {
             className += 'answered';
         }
         return (
-            <div>
+            <div key={item}>
                 <button className={className} onClick={() => handleButtonClick(item)}>{item}</button>
             </div>
         )
