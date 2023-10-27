@@ -115,7 +115,7 @@
 
 
 import React, { useEffect, useRef, useState } from 'react';
-
+import popup from 'react-popup'
 import './RightSidebar.css'
 
 
@@ -220,6 +220,24 @@ const RightSidebar = ({ onQuestionSelect, questionStatus, seconds }) => {
     };
 
 
+    // let mySpecialPopup = popup.register({
+    //     // title: 'Are you sure you want to submit the test ?',
+    //     content:'Are you sure you want to submit the test ?',
+    //     buttons: {
+    //         left: ['cancel'],
+    //         right: ['ok']
+    //     }
+    // });
+    // popup.queue(mySpecialPopup);
+
+    // function handleSubmit() {
+    //     alert(
+    //         <div>
+    //            <h3>'Are you sure you want to submit the test ?'</h3>
+    //         </div>
+    //     );
+    //   }
+
     return (
 
         <div className='right-side-bar'>
@@ -246,6 +264,10 @@ const RightSidebar = ({ onQuestionSelect, questionStatus, seconds }) => {
                     <div className='inst-btns'><button className='instruction-btn3'>0</button><p>Marked</p><br /></div><br />
                     <div className='inst-btns'><button className='instruction-btn4'>0</button><p>Answered but marked for review</p></div><br />
                     <div className='inst-btns'><button className='instruction-btn5'>0</button><p>Not Visited</p></div>
+                </div>
+                <div>
+                    {/* <button onClick={handleSubmit}>Submit</button> */}
+                    
                 </div>
             </div>
 

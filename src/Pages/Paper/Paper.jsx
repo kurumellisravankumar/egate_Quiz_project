@@ -1217,7 +1217,7 @@
 
 // export default Paper;
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import "./Paper.css";
 import PaperHeader from "../../Components/PaperHeader/PaperHeader";
 import RightSidebar from "../../Components/RightSidebar/RightSidebar";
@@ -1485,6 +1485,12 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
     setOpensubject_1(false)
   }
 
+
+
+  const handleQuestionSelect = (questionNumber) => {
+    setCurrentQuestionIndex(questionNumber - 1);
+};
+
   return (
     <div className="main">
       <div className="sub-main">
@@ -1721,13 +1727,14 @@ Chemistry
             onClick={onClickNext}
             // disabled={!selectedAnswers[activeQuestion]}
           >
-            {activeQuestion === Qimages.length - 1 ? "Submit" : "Save & Next"}
+            Save & Next
+            {/* {activeQuestion === Qimages.length - 1 ? "Submit" : "Save & Next"} */}
             <i className="fa-solid fa-angles-right"></i>
           </button>
         </div>
       </div>
       <div className="rightsidebar">
-        <RightSidebar   />
+        <RightSidebar onQuestionSelect={handleQuestionSelect} questionStatus={questionStatus}  />
        
       </div>
     </div>
