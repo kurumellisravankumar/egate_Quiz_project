@@ -1223,13 +1223,14 @@ import PaperHeader from "../../Components/PaperHeader/PaperHeader";
 import RightSidebar from "../../Components/RightSidebar/RightSidebar";
 // import "../../Components/RightSidebar/RightSidebar.css";
 import { DotSpinner } from "@uiball/loaders";
-
-const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
-  const [Qimages, setQImages] = useState([]);
+import axios from 'axios';
+const Paper = ({ onQuestionSelect, questionStatus, seconds1,testId }) => {
+  // const [Qimages, setQImages] = useState([]);
   const [OPTimages, setOPTImages] = useState([]);
+  const [questions, setQuestions] = useState([]);
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState(
-    Array(Qimages.length).fill("")
+    Array(questions.length).fill("")
   );
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [showResult, setShowResult] = useState(false);
@@ -1239,7 +1240,64 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
     wrongAnswers: 0,
   });
 
+  // useEffect(() => {
+    // // Fetch data for Qimages (first image from each set of IDs 1-6, 7-12, ...)
+    // const fetchQImages = async () => {
+    //   let fetchedQImages = [];
+
+    //   for (let i = 1; i <= 1000; i += 6) {
+    //     // Assuming there are 100 sets of images
+    //     try {
+    //       const response = await fetch(`http://localhost:10000/images/${i}`);
+    //       const data = await response.json();
+    //       if (data.length > 0) {
+    //         fetchedQImages.push(data[0]); // Add only the first image from each set
+    //       }
+    //     } catch (error) {
+    //       console.error("Error fetching Qimages:", error);
+    //     }
+    //   }
+
+    //   setQImages(fetchedQImages);
+    // };
+
+    // // Fetch data for OPTimages (images 2 to 5 from each set of IDs 1-6, 7-12, ...)
+    // const fetchOPTImages = async () => {
+    //   let fetchedOPTImages = [];
+
+    //   for (let i = 1; i <= 1000; i += 6) {
+    //     // Assuming there are 100 sets of images
+    //     try {
+    //       for (let j = i + 1; j <= i + 4; j++) {
+    //         const response = await fetch(`http://localhost:10000/images/${j}`);
+    //         const data = await response.json();
+    //         if (data.length > 0) {
+    //           fetchedOPTImages.push(data[0]); // Add the second to fifth images from each set
+    //         }
+    //       }
+    //     } catch (error) {
+    //       console.error("Error fetching OPTimages:", error);
+    //     }
+    //   }
+
+    //   setOPTImages(fetchedOPTImages);
+    // };
+
+    // fetchQImages();
+    // fetchOPTImages();
+  // }, []); // Empty dependency array to fetch data only once when the component mounts
+
+
   useEffect(() => {
+<<<<<<< HEAD
+    // Define a function to fetch questions
+    const fetchQuestions = async () => {
+      try {
+        const response = await axios.get(`http://localhost:10000/questions/${testId}`);
+        setQuestions(response.data);
+      } catch (error) {
+        console.error(error);
+=======
     // Fetch data for Qimages (first image from each set of IDs 1-6, 7-12, ...)
     const fetchQImages = async () => {
       let fetchedQImages = [];
@@ -1247,7 +1305,7 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
       for (let i = 1; i <= 1000; i += 6) {
         // Assuming there are 100 sets of images
         try {
-          const response = await fetch(`http://localhost:10000/images/${i}`);
+          const response = await fetch(`http://localhost:2000/images/${i}`);
           const data = await response.json();
           if (data.length > 0) {
             fetchedQImages.push(data[0]); // Add only the first image from each set
@@ -1255,20 +1313,21 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
         } catch (error) {
           console.error("Error fetching Qimages:", error);
         }
+>>>>>>> Harshitha-Practice-1
       }
-
-      setQImages(fetchedQImages);
     };
 
-    // Fetch data for OPTimages (images 2 to 5 from each set of IDs 1-6, 7-12, ...)
-    const fetchOPTImages = async () => {
-      let fetchedOPTImages = [];
+    // Call the function to fetch questions when the component mounts
+    fetchQuestions();
+  }, [testId]);
 
+<<<<<<< HEAD
+=======
       for (let i = 1; i <= 1000; i += 6) {
         // Assuming there are 100 sets of images
         try {
           for (let j = i + 1; j <= i + 4; j++) {
-            const response = await fetch(`http://localhost:10000/images/${j}`);
+            const response = await fetch(`http://localhost:2000/images/${j}`);
             const data = await response.json();
             if (data.length > 0) {
               fetchedOPTImages.push(data[0]); // Add the second to fifth images from each set
@@ -1278,15 +1337,10 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
           console.error("Error fetching OPTimages:", error);
         }
       }
+>>>>>>> Harshitha-Practice-1
 
-      setOPTImages(fetchedOPTImages);
-    };
 
-    fetchQImages();
-    fetchOPTImages();
-  }, []); // Empty dependency array to fetch data only once when the component mounts
-
-  const [timers, setTimers] = useState(new Array(Qimages.length).fill(0));
+  const [timers, setTimers] = useState(new Array(questions.length).fill(0));
   const [timer, setTimer] = useState(0);
 
   const onAnswerSelected = (OptionLetter) => {
@@ -1334,7 +1388,7 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
 
       return prevIndex + 1;
     });
-    const correctAnswer = Qimages[activeQuestion].correct_answer; // Replace 'correct_answer' with the actual property name
+    const correctAnswer = questions[activeQuestion].correct_answer; // Replace 'correct_answer' with the actual property name
     const selectedAnswer = selectedAnswers[activeQuestion];
 
     if (selectedAnswer === correctAnswer) {
@@ -1350,7 +1404,7 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
       }));
     }
 
-    if (activeQuestion < Qimages.length - 1) {
+    if (activeQuestion < questions.length - 1) {
       setActiveQuestion((prevActiveQuestion) => prevActiveQuestion + 1);
     } else {
       setShowResult(true);
@@ -1389,7 +1443,7 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
   // }, [currentQuestionIndex, timers]);
 
   // Check if Qimages[currentQuestionIndex] is defined before accessing its properties
-  const currentQuestion = Qimages[currentQuestionIndex];
+  const currentQuestion = questions[currentQuestionIndex];
   const questionImageSrc = currentQuestion
     ? `data:image/png;base64,${currentQuestion.image_data}`
     : "";
@@ -1541,14 +1595,14 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
               </span>
               <span className="total-question">
                 {" "}
-                of {addLeadingZero(Qimages.length)}
+                of {addLeadingZero(questions.length)}
               </span>
             </div>
               <h2 className="question">
-                {Qimages && Qimages.length > 0 && Qimages[activeQuestion] ? (
+                {questions && questions.length > 0 && questions[activeQuestion] ? (
                   <div>
                     <img
-                      src={`data:image/png;base64,${Qimages[activeQuestion].image_data}`}
+                      src={`data:image/png;base64,${questions[activeQuestion].qustion_data}`}
                       alt={`QImage ${activeQuestion + 1}`}
                     />
                     <ul className="options-container">
@@ -1601,14 +1655,14 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
               </span>
               <span className="total-question">
                 {" "}
-                of {addLeadingZero(Qimages.length)}
+                of {addLeadingZero(questions.length)}
               </span>
             </div>
               <h2 className="question">
-                {Qimages && Qimages.length > 0 && Qimages[activeQuestion] ? (
+                {questions && questions.length > 0 && questions[activeQuestion] ? (
                   <div>
                     <img
-                      src={`data:image/png;base64,${Qimages[activeQuestion].image_data}`}
+                      src={`data:image/png;base64,${questions[activeQuestion].image_data}`}
                       alt={`QImage ${activeQuestion + 1}`}
                     />
                     <ul className="options-container">
@@ -1661,14 +1715,14 @@ Chemistry
               </span>
               <span className="total-question">
                 {" "}
-                of {addLeadingZero(Qimages.length)}
+                of {addLeadingZero(questions.length)}
               </span>
             </div>
               <h2 className="question">
-                {Qimages && Qimages.length > 0 && Qimages[activeQuestion] ? (
+                {questions && questions.length > 0 && questions[activeQuestion] ? (
                   <div>
                     <img
-                      src={`data:image/png;base64,${Qimages[activeQuestion].image_data}`}
+                      src={`data:image/png;base64,${questions[activeQuestion].image_data}`}
                       alt={`QImage ${activeQuestion + 1}`}
                     />
                     <ul className="options-container">
@@ -1732,8 +1786,12 @@ Chemistry
             onClick={onClickNext}
             // disabled={!selectedAnswers[activeQuestion]}
           >
+<<<<<<< HEAD
+            {activeQuestion === questions.length - 1 ? "Submit" : "Save & Next"}
+=======
             Save & Next
             {/* {activeQuestion === Qimages.length - 1 ? "Submit" : "Save & Next"} */}
+>>>>>>> Harshitha-Practice-1
             <i className="fa-solid fa-angles-right"></i>
           </button>
         </div>

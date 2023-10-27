@@ -115,10 +115,11 @@
 
 
 import React, { useEffect, useRef, useState } from 'react';
-import popup from 'react-popup'
+// import popup from 'react-popup'
 import './RightSidebar.css'
-
+// import Swal from 'sweetalert2'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom';
 
 
 
@@ -264,14 +265,19 @@ const RightSidebar = ({ onQuestionSelect, questionStatus, seconds }) => {
     //     }
     // });
     // popup.queue(mySpecialPopup);
+    
+   
 
-    // function handleSubmit() {
-    //     alert(
-    //         <div>
-    //            <h3>'Are you sure you want to submit the test ?'</h3>
-    //         </div>
-    //     );
-    //   }
+      const [openalertsubmit,setOpenalertsubmit]=useState(false)
+      const handleSubmit=() => {
+        setOpenalertsubmit(true)
+       
+      }
+      const handleCancel=() => {
+        setOpenalertsubmit(false)
+       
+      }
+
 
     return (
 
@@ -301,8 +307,18 @@ const RightSidebar = ({ onQuestionSelect, questionStatus, seconds }) => {
                     <div className='inst-btns'><button className='instruction-btn5'>0</button><p>Not Visited</p></div>
                 </div>
                 <div>
-                    {/* <button onClick={handleSubmit}>Submit</button> */}
-                    
+                   {/* <Link to='/ads'  onClick={handleSubmit}> jkkh</Link> */}
+                   <button onClick={handleSubmit}>
+                   Submit
+                    </button>
+                    {openalertsubmit ?
+                    <div>
+                        <h3>Are you sure?</h3>
+                        <p>You want to submit the test...</p>
+                        <button><Link to='/result'>Submit</Link></button>
+                        <button onClick={handleCancel}>Cancel</button>
+                    </div>:null
+}
                 </div>
             </div>
 
