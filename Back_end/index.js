@@ -13,7 +13,7 @@ const db = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
-    database: "egquizdatabase1",
+    database: "egquizdatabase",
 });
 
 db.connect((err) => {
@@ -77,27 +77,82 @@ app.post('/upload', upload.single('document'), async (req, res) => {
     }
 });
 
-app.get('/images/:id', (req, res) => {
-    const id = req.params.id; // Use req.params.id to get the ID from the route
+app.get('/questions/:test_id', (req, res) => {
+    const test_id = req.params.test_id; // Use req.params.id to get the ID from the route
 
     // Query the database to fetch images for the specified document_id
-    const selectImagesSql = 'SELECT image_data FROM images WHERE id = ?'; // Change "id" to "document_id"
-    db.query(selectImagesSql, [id], (error, results) => {
+    const selectQuestions = 'SELECT qustion_data FROM questions WHERE test_id = ?'; // Change "id" to "document_id"
+    db.query(selectQuestions, [test_id], (error, results) => {
         if (error) {
             console.error(error);
-            res.status(500).send('Error fetching images from the database.');
+            res.status(500).send('Error fetching Questions from the database.');
         } else {
             // Send the images as a JSON response
-            const images = results.map(result => {
+            const Questions = results.map(result => {
                 return {
-                    image_name: result.image_name,
-                    image_data: result.image_data.toString('base64'),
+                    qustion_data: result.qustion_data.toString('base64'),
                 };
             });
-            res.json(images);
+            res.json(Questions);
         }
     });
 });
+
+app.get('/options/:qustion_id', (req, res) => {
+    const qustion_id = req.params.qustion_id; // Use req.params.id to get the ID from the route
+
+    // Query the database to fetch images for the specified document_id
+    const selectOptions = 'SELECT option_data,test_id,qustion_id FROM options_table WHERE test_id=? AND qustion_id = ?'; // Change "id" to "document_id"
+    db.query(selectOptions, [qustion_id], (error, results) => {
+        if (error) {
+            console.error(error);
+            res.status(500).send('Error fetching Options from the database.');
+        } else {
+            // Send the images as a JSON response
+            const Options = results.map(result => {
+                return {
+                    option_data: result.option_data.toString('base64'),
+                };
+            });
+            res.json(Options);
+        }
+    });
+});
+
+
+
+
+
+
+
+
+
+
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
+
+// app.get('/images/:id', (req, res) => {
+//     const id = req.params.id; // Use req.params.id to get the ID from the route
+
+//     // Query the database to fetch images for the specified document_id
+//     const selectImagesSql = 'SELECT image_data FROM images WHERE id = ?'; // Change "id" to "document_id"
+//     db.query(selectImagesSql, [id], (error, results) => {
+//         if (error) {
+//             console.error(error);
+//             res.status(500).send('Error fetching images from the database.');
+//         } else {
+//             // Send the images as a JSON response
+//             const images = results.map(result => {
+//                 return {
+//                     image_name: result.image_name,
+//                     image_data: result.image_data.toString('base64'),
+//                 };
+//             });
+//             res.json(images);
+//         }
+//     });
+// });
 
 
 // app.get('/img', (req, res) => {
@@ -123,6 +178,3 @@ app.get('/images/:id', (req, res) => {
 // });
 
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
