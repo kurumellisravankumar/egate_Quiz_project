@@ -230,13 +230,13 @@ const RightSidebar = ({ onQuestionSelect, questionStatus, seconds }) => {
     // });
     // popup.queue(mySpecialPopup);
 
-    function handleSubmit() {
-        alert(
-            <div>
-               <h3>'Are you sure you want to submit the test ?'</h3>
-            </div>
-        );
-      }
+    // function handleSubmit() {
+    //     alert(
+    //         <div>
+    //            <h3>'Are you sure you want to submit the test ?'</h3>
+    //         </div>
+    //     );
+    //   }
 
     return (
 
@@ -266,7 +266,7 @@ const RightSidebar = ({ onQuestionSelect, questionStatus, seconds }) => {
                     <div className='inst-btns'><button className='instruction-btn5'>0</button><p>Not Visited</p></div>
                 </div>
                 <div>
-                    <button onClick={handleSubmit}>Submit</button>
+                    {/* <button onClick={handleSubmit}>Submit</button> */}
                     
                 </div>
             </div>
