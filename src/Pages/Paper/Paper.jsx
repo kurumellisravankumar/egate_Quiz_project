@@ -1247,7 +1247,7 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
       for (let i = 1; i <= 1000; i += 6) {
         // Assuming there are 100 sets of images
         try {
-          const response = await fetch(`http://localhost:7002/images/${i}`);
+          const response = await fetch(`http://localhost:10000/images/${i}`);
           const data = await response.json();
           if (data.length > 0) {
             fetchedQImages.push(data[0]); // Add only the first image from each set
@@ -1268,7 +1268,7 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
         // Assuming there are 100 sets of images
         try {
           for (let j = i + 1; j <= i + 4; j++) {
-            const response = await fetch(`http://localhost:7002/images/${j}`);
+            const response = await fetch(`http://localhost:10000/images/${j}`);
             const data = await response.json();
             if (data.length > 0) {
               fetchedOPTImages.push(data[0]); // Add the second to fifth images from each set
@@ -1358,35 +1358,35 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
     }
   };
 
-  const formatTime = (seconds) => {
-    const hours = Math.floor(seconds / 3600);
+  // const formatTime = (seconds) => {
+  //   const hours = Math.floor(seconds / 3600);
 
-    const minutes = Math.floor((seconds % 3600) / 60);
+  //   const minutes = Math.floor((seconds % 3600) / 60);
 
-    const remainingSeconds = seconds % 60;
+  //   const remainingSeconds = seconds % 60;
 
-    return `${hours > 9 ? hours : "0" + hours}:${
-      minutes > 9 ? minutes : "0" + minutes
-    }:${remainingSeconds > 9 ? remainingSeconds : "0" + remainingSeconds}`;
-  };
+  //   return `${hours > 9 ? hours : "0" + hours}:${
+  //     minutes > 9 ? minutes : "0" + minutes
+  //   }:${remainingSeconds > 9 ? remainingSeconds : "0" + remainingSeconds}`;
+  // };
 
-  useEffect(() => {
-    // Set the timer to the saved value for the current question
+  // useEffect(() => {
+  //   // Set the timer to the saved value for the current question
 
-    setTimer(timers[currentQuestionIndex] || 0);
+  //   setTimer(timers[currentQuestionIndex] || 0);
 
-    let interval;
+  //   let interval;
 
-    interval = setInterval(() => {
-      setTimer((prevTimer) => prevTimer + 1);
-    }, 1000);
+  //   interval = setInterval(() => {
+  //     setTimer((prevTimer) => prevTimer + 1);
+  //   }, 1000);
 
-    // Clear the interval when the component unmounts or when the user moves to the next question
+  //   // Clear the interval when the component unmounts or when the user moves to the next question
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, [currentQuestionIndex, timers]);
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
+  // }, [currentQuestionIndex, timers]);
 
   // Check if Qimages[currentQuestionIndex] is defined before accessing its properties
   const currentQuestion = Qimages[currentQuestionIndex];
@@ -1439,30 +1439,51 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
 
 
 
-  const [answeredQuestions, setAnsweredQuestions] = useState([]);
+  // const [answeredQuestions, setAnsweredQuestions] = useState([]);
 
-  const handleButtonClick = (questionNumber) => {
-    onQuestionSelect(questionNumber);
-    setAnsweredQuestions([...answeredQuestions, questionNumber]);
-  };
+  // const handleButtonClick = (questionNumber) => {
+  //   onQuestionSelect(questionNumber);
+  //   setAnsweredQuestions([...answeredQuestions, questionNumber]);
+  // };
 
-  const buttons = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-    22, 23, 24, 25, 26, 27, 28, 29, 30,
-  ];
-  const renderList = buttons.map((item, index) => {
-    let className = "quesAns-btn";
-    if (questionStatus && questionStatus[index] === "answered") {
-      className += "answered";
-    }
-    return (
-      <div>
-        <button className={className} onClick={() => handleButtonClick(item)}>
-          {item}
-        </button>
-      </div>
-    );
-  });
+  // const buttons = [
+  //   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+  //   22, 23, 24, 25, 26, 27, 28, 29, 30,
+  // ];
+  // const renderList = buttons.map((item, index) => {
+  //   let className = "quesAns-btn";
+  //   if (questionStatus && questionStatus[index] === "answered") {
+  //     className += "answered";
+  //   }
+  //   return (
+  //     <div>
+  //       <button className={className} onClick={() => handleButtonClick(item)}>
+  //         {item}
+  //       </button>
+  //     </div>
+  //   );
+  // });
+
+  const[opensubject_1,setOpensubject_1]=useState(true)
+  const [opensubject_2,setOpensubject_2]=useState(false)
+  const [opensubject_3,setOpensubject_3]=useState(false)
+
+  const openAlertSubject1=()=>{
+    setOpensubject_1(true)
+    setOpensubject_2(false)
+    setOpensubject_3(false)
+  }
+  const openAlertSubject2=()=>{
+    setOpensubject_2(true)
+    setOpensubject_1(false)
+    setOpensubject_3(false)
+
+  }
+  const openAlertSubject3=()=>{
+    setOpensubject_3(true)
+    setOpensubject_2(false)
+    setOpensubject_1(false)
+  }
 
   return (
     <div className="main">
@@ -1473,9 +1494,9 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
         <div className="quiz-container">
           <div>
             <div className="subjects">
-              <button className="subject-btn">Mathematics</button>
-              <button className="subject-btn">Physics</button>
-              <button className="subject-btn">Chemistry</button>
+              <button className="subject-btn" onClick={openAlertSubject1}>Mathematics</button>
+              <button className="subject-btn" onClick={openAlertSubject2}>Physics</button>
+              <button className="subject-btn" onClick={openAlertSubject3}>Chemistry</button>
             </div>
             <div className="second-header">
               <div className="single-select-question">
@@ -1486,10 +1507,24 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
                   Marks: <div className="plus-mark">+1</div>
                   <div className="minus-mark">-1</div>
                 </div>
-                <div>Timer: {formatTime(timer)}</div>
+                {/* <div>Timer: {formatTime(timer)}</div> */}
               </div>
             </div>
+            {/* <div className="question-no">
+              <span className="active-question-no">
+                Question No. {addLeadingZero(currentQuestionIndex + 1)}
+              </span>
+              <span className="total-question">
+                {" "}
+                of {addLeadingZero(Qimages.length)}
+              </span>
+            </div> */}
+
+{opensubject_1 ?
+ <div className="Subject-Container">
+  maths
             <div className="question-no">
+           
               <span className="active-question-no">
                 Question No. {addLeadingZero(currentQuestionIndex + 1)}
               </span>
@@ -1498,8 +1533,6 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
                 of {addLeadingZero(Qimages.length)}
               </span>
             </div>
-
-            <div className="options-container">
               <h2 className="question">
                 {Qimages && Qimages.length > 0 && Qimages[activeQuestion] ? (
                   <div>
@@ -1542,7 +1575,130 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
                   </div>
                 )}
               </h2>
+            </div>:
+            null
+}
+
+
+{opensubject_2 ?
+ <div className="Subject-Container">
+  Physics
+            <div className="question-no">
+           
+              <span className="active-question-no">
+                Question No. {addLeadingZero(currentQuestionIndex + 1)}
+              </span>
+              <span className="total-question">
+                {" "}
+                of {addLeadingZero(Qimages.length)}
+              </span>
             </div>
+              <h2 className="question">
+                {Qimages && Qimages.length > 0 && Qimages[activeQuestion] ? (
+                  <div>
+                    <img
+                      src={`data:image/png;base64,${Qimages[activeQuestion].image_data}`}
+                      alt={`QImage ${activeQuestion + 1}`}
+                    />
+                    <ul className="options-container">
+                      {OPTimages.slice(
+                        activeQuestion * 4,
+                        activeQuestion * 4 + 4
+                      ).map((optImage, optIndex) => (
+                        <li key={optIndex}>
+                          <input
+                            type="radio"
+                            name="index"
+                            checked={
+                              selectedAnswers[activeQuestion] ===
+                              String.fromCharCode(65 + optIndex)
+                            }
+                            onChange={() =>
+                              onAnswerSelected(
+                                String.fromCharCode(65 + optIndex)
+                              )
+                            }
+                          />
+                          <label className="alpha-index">
+                            <img
+                              src={`data:image/png;base64,${optImage.image_data}`}
+                              alt={`OPTImage ${optIndex + 2}-${optIndex + 5}`}
+                            />
+                          </label>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : (
+                  <div className="loading-gif">
+                    <DotSpinner size={90} speed={0.9} color="black" />
+                  </div>
+                )}
+              </h2>
+            </div>:
+            null
+}
+
+
+{opensubject_3 ?
+ <div className="Subject-Container">
+Chemistry
+            <div className="question-no">
+           
+              <span className="active-question-no">
+                Question No. {addLeadingZero(currentQuestionIndex + 1)}
+              </span>
+              <span className="total-question">
+                {" "}
+                of {addLeadingZero(Qimages.length)}
+              </span>
+            </div>
+              <h2 className="question">
+                {Qimages && Qimages.length > 0 && Qimages[activeQuestion] ? (
+                  <div>
+                    <img
+                      src={`data:image/png;base64,${Qimages[activeQuestion].image_data}`}
+                      alt={`QImage ${activeQuestion + 1}`}
+                    />
+                    <ul className="options-container">
+                      {OPTimages.slice(
+                        activeQuestion * 4,
+                        activeQuestion * 4 + 4
+                      ).map((optImage, optIndex) => (
+                        <li key={optIndex}>
+                          <input
+                            type="radio"
+                            name="index"
+                            checked={
+                              selectedAnswers[activeQuestion] ===
+                              String.fromCharCode(65 + optIndex)
+                            }
+                            onChange={() =>
+                              onAnswerSelected(
+                                String.fromCharCode(65 + optIndex)
+                              )
+                            }
+                          />
+                          <label className="alpha-index">
+                            <img
+                              src={`data:image/png;base64,${optImage.image_data}`}
+                              alt={`OPTImage ${optIndex + 2}-${optIndex + 5}`}
+                            />
+                          </label>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : (
+                  <div className="loading-gif">
+                    <DotSpinner size={90} speed={0.9} color="black" />
+                  </div>
+                )}
+              </h2>
+            </div>:
+            null
+}
+
 
             <div className="flex-right"></div>
           </div>
@@ -1563,7 +1719,7 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
           <button
             className="save-btn"
             onClick={onClickNext}
-            disabled={!selectedAnswers[activeQuestion]}
+            // disabled={!selectedAnswers[activeQuestion]}
           >
             {activeQuestion === Qimages.length - 1 ? "Submit" : "Save & Next"}
             <i className="fa-solid fa-angles-right"></i>
