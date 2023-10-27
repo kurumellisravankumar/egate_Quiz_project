@@ -1217,7 +1217,7 @@
 
 // export default Paper;
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import "./Paper.css";
 import PaperHeader from "../../Components/PaperHeader/PaperHeader";
 import RightSidebar from "../../Components/RightSidebar/RightSidebar";
