@@ -178,7 +178,13 @@ const RightSidebar = ({ onQuestionSelect, questionStatus, seconds }) => {
     const renderList = buttons.map((item, index) => {
         let className = 'quesAns-btn';
         if (questionStatus && questionStatus[index] === 'answered') {
-            className += 'answered';
+            className += 'instruction-btn1';
+        }else if(questionStatus && questionStatus[index] === 'notAnswered') {
+            className += 'instruction-btn2';
+        }else if (questionStatus && questionStatus[index] === 'marked') {
+            className += 'instruction-btn3';
+        } else if (questionStatus && questionStatus[index] === 'notVisited') {
+            className += 'instruction-btn5';
         }
         return (
             <div key={item}>
