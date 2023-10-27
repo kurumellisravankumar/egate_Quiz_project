@@ -12,8 +12,8 @@ const port = 10000;
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "",
-    database: "egquizdatabase1",
+    password: "naveen",
+    database: "egquizdatabase",
 });
 
 db.connect((err) => {
@@ -99,7 +99,6 @@ app.get('/images/:id', (req, res) => {
     });
 });
 
-
 // app.get('/img', (req, res) => {
 //     // Use req.params.id to get the ID from the route
 
@@ -121,7 +120,6 @@ app.get('/images/:id', (req, res) => {
 //         }
 //     });
 // });
-
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
