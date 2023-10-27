@@ -1217,7 +1217,7 @@
 
 // export default Paper;
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import "./Paper.css";
 import PaperHeader from "../../Components/PaperHeader/PaperHeader";
 import RightSidebar from "../../Components/RightSidebar/RightSidebar";
@@ -1289,6 +1289,7 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1,testId }) => {
 
 
   useEffect(() => {
+<<<<<<< HEAD
     // Define a function to fetch questions
     const fetchQuestions = async () => {
       try {
@@ -1296,6 +1297,23 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1,testId }) => {
         setQuestions(response.data);
       } catch (error) {
         console.error(error);
+=======
+    // Fetch data for Qimages (first image from each set of IDs 1-6, 7-12, ...)
+    const fetchQImages = async () => {
+      let fetchedQImages = [];
+
+      for (let i = 1; i <= 1000; i += 6) {
+        // Assuming there are 100 sets of images
+        try {
+          const response = await fetch(`http://localhost:2000/images/${i}`);
+          const data = await response.json();
+          if (data.length > 0) {
+            fetchedQImages.push(data[0]); // Add only the first image from each set
+          }
+        } catch (error) {
+          console.error("Error fetching Qimages:", error);
+        }
+>>>>>>> Harshitha-Practice-1
       }
     };
 
@@ -1303,6 +1321,23 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1,testId }) => {
     fetchQuestions();
   }, [testId]);
 
+<<<<<<< HEAD
+=======
+      for (let i = 1; i <= 1000; i += 6) {
+        // Assuming there are 100 sets of images
+        try {
+          for (let j = i + 1; j <= i + 4; j++) {
+            const response = await fetch(`http://localhost:2000/images/${j}`);
+            const data = await response.json();
+            if (data.length > 0) {
+              fetchedOPTImages.push(data[0]); // Add the second to fifth images from each set
+            }
+          }
+        } catch (error) {
+          console.error("Error fetching OPTimages:", error);
+        }
+      }
+>>>>>>> Harshitha-Practice-1
 
 
   const [timers, setTimers] = useState(new Array(questions.length).fill(0));
@@ -1503,6 +1538,17 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1,testId }) => {
     setOpensubject_2(false)
     setOpensubject_1(false)
   }
+
+
+
+  const handleQuestionSelect = (questionNumber) => {
+    setCurrentQuestionIndex(questionNumber - 1);
+    setActiveQuestion(questionNumber - 1);
+};
+
+
+
+
 
   return (
     <div className="main">
@@ -1740,13 +1786,18 @@ Chemistry
             onClick={onClickNext}
             // disabled={!selectedAnswers[activeQuestion]}
           >
+<<<<<<< HEAD
             {activeQuestion === questions.length - 1 ? "Submit" : "Save & Next"}
+=======
+            Save & Next
+            {/* {activeQuestion === Qimages.length - 1 ? "Submit" : "Save & Next"} */}
+>>>>>>> Harshitha-Practice-1
             <i className="fa-solid fa-angles-right"></i>
           </button>
         </div>
       </div>
       <div className="rightsidebar">
-        <RightSidebar   />
+        <RightSidebar onQuestionSelect={handleQuestionSelect} questionStatus={questionStatus}  />
        
       </div>
     </div>

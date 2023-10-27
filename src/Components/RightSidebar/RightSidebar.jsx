@@ -115,8 +115,11 @@
 
 
 import React, { useEffect, useRef, useState } from 'react';
-
+// import popup from 'react-popup'
 import './RightSidebar.css'
+// import Swal from 'sweetalert2'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom';
 
 
 
@@ -132,13 +135,46 @@ const RightSidebar = ({ onQuestionSelect, questionStatus, seconds }) => {
 
 
     const [answeredQuestions, setAnsweredQuestions] = useState([]);
+    const [isPaused, setIsPaused] = useState(false);
 
     const handleButtonClick = (questionNumber) => {
         onQuestionSelect(questionNumber);
-        setAnsweredQuestions([...answeredQuestions, questionNumber])
+        setAnsweredQuestions([...answeredQuestions, questionNumber]);
+        setIsPaused(false);
     }
 
 
+     
+    RightSidebar.propTypes = {
+        onQuestionSelect: PropTypes.func.isRequired,
+        questionStatus: PropTypes.arrayOf(PropTypes.string),
+        onResumeTimer: PropTypes.func.isRequired, // Define the prop type for onResumeTimer
+    };
+
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [timers, setTimers] = useState(new Array().fill(0));
+    const [timer, setTimer] = useState(0);
+
+    useEffect(() => {
+        // Set the timer to the saved value for the current question
+        setTimer(timers[currentQuestionIndex] || 0);
+
+        let interval;
+        // interval = setInterval(() => {
+        //     setTimer(prevTimer => prevTimer + 1);
+        // }, 1000);
+
+        if (!isPaused) {
+            interval = setInterval(() => {
+                setTimer(prevTimer => prevTimer + 1);
+            }, 1000);
+        }
+
+        // Clear the interval when the component unmounts or when the user moves to the next question
+        return () => {
+            clearInterval(interval);
+        };
+    }, [currentQuestionIndex, timers, isPaused]);
 
     const renderList = buttons.map((item, index) => {
         let className = 'quesAns-btn';
@@ -146,7 +182,7 @@ const RightSidebar = ({ onQuestionSelect, questionStatus, seconds }) => {
             className += 'answered';
         }
         return (
-            <div>
+            <div key={item}>
                 <button className={className} onClick={() => handleButtonClick(item)}>{item}</button>
             </div>
         )
@@ -220,6 +256,29 @@ const RightSidebar = ({ onQuestionSelect, questionStatus, seconds }) => {
     };
 
 
+    // let mySpecialPopup = popup.register({
+    //     // title: 'Are you sure you want to submit the test ?',
+    //     content:'Are you sure you want to submit the test ?',
+    //     buttons: {
+    //         left: ['cancel'],
+    //         right: ['ok']
+    //     }
+    // });
+    // popup.queue(mySpecialPopup);
+    
+   
+
+      const [openalertsubmit,setOpenalertsubmit]=useState(false)
+      const handleSubmit=() => {
+        setOpenalertsubmit(true)
+       
+      }
+      const handleCancel=() => {
+        setOpenalertsubmit(false)
+       
+      }
+
+
     return (
 
         <div className='right-side-bar'>
@@ -246,6 +305,20 @@ const RightSidebar = ({ onQuestionSelect, questionStatus, seconds }) => {
                     <div className='inst-btns'><button className='instruction-btn3'>0</button><p>Marked</p><br /></div><br />
                     <div className='inst-btns'><button className='instruction-btn4'>0</button><p>Answered but marked for review</p></div><br />
                     <div className='inst-btns'><button className='instruction-btn5'>0</button><p>Not Visited</p></div>
+                </div>
+                <div>
+                   {/* <Link to='/ads'  onClick={handleSubmit}> jkkh</Link> */}
+                   <button onClick={handleSubmit}>
+                   Submit
+                    </button>
+                    {openalertsubmit ?
+                    <div>
+                        <h3>Are you sure?</h3>
+                        <p>You want to submit the test...</p>
+                        <button><Link to='/result'>Submit</Link></button>
+                        <button onClick={handleCancel}>Cancel</button>
+                    </div>:null
+}
                 </div>
             </div>
 
