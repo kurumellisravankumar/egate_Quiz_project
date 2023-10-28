@@ -1225,12 +1225,43 @@ import RightSidebar from "../../Components/RightSidebar/RightSidebar";
 import { DotSpinner } from "@uiball/loaders";
 
 const Paper = () => {
-
-  const [questionStatus, setQuestionStatus] = useState(["notAnswered", ...Array(29).fill("notVisited")]);
-
- 
-
   const [Qimages, setQImages] = useState([]);
+  const [questionStatus, setQuestionStatus] = useState(["notAnswered", ...Array(29).fill("notVisited")]);
+  const [answeredCount, setAnsweredCount] = useState(0);
+  const [notAnsweredCount, setNotAnsweredCount] = useState(0);
+  const [answeredmarkedForReviewCount, setAnsweredmarkedForReviewCount] = useState(0);
+  const [markedForReviewCount, setMarkedForReviewCount] = useState(0);
+  const [VisitedCount, setVisitedCount] = useState(0);
+  const updateCounters = () => {
+    let answered = 0;
+    let notAnswered = 0;
+    let marked = 0;
+    let markedForReview = 0;
+    let Visited = 0;
+
+    questionStatus.forEach((status) => {
+      if (status === "answered") {
+        answered++;
+      } else if (status === "notAnswered") {
+        notAnswered++;
+      } else if (status === "marked") {
+        marked++;
+      }
+      else if (status === "Answered but marked for review") {
+        markedForReview++;
+      } else if (status ==="notVisited") {
+        Visited++;
+      }
+    });
+
+    setAnsweredCount(answered);
+    setNotAnsweredCount(notAnswered);
+    setAnsweredmarkedForReviewCount(marked);
+    setMarkedForReviewCount(markedForReview);
+    setVisitedCount(Visited);
+  };
+
+  // const [Qimages, setQImages] = useState([]);
   const [OPTimages, setOPTImages] = useState([]);
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState(
@@ -1289,7 +1320,10 @@ const Paper = () => {
 
     fetchQImages();
     fetchOPTImages();
-  }, []); // Empty dependency array to fetch data only once when the component mounts
+
+
+    updateCounters();
+  }, [questionStatus]); // Empty dependency array to fetch data only once when the component mounts
 
   const [timers, setTimers] = useState(new Array(Qimages.length).fill(0));
   const [timer, setTimer] = useState(0);
@@ -1809,7 +1843,16 @@ Chemistry
         </div>
       </div>
       <div className="rightsidebar">
-        <RightSidebar onQuestionSelect={handleQuestionSelect} questionStatus={questionStatus} setQuestionStatus={setQuestionStatus}  />
+        <RightSidebar 
+        onQuestionSelect={handleQuestionSelect} 
+        questionStatus={questionStatus} 
+        setQuestionStatus={setQuestionStatus}
+        answeredCount={answeredCount}
+        notAnsweredCount={notAnsweredCount}
+        answeredmarkedForReviewCount={answeredmarkedForReviewCount}
+        markedForReviewCount={markedForReviewCount}
+        VisitedCount={VisitedCount}
+          />
        
       </div>
     </div>

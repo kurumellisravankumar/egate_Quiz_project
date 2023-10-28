@@ -130,7 +130,7 @@ const buttons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 
 // )
 
 
-const RightSidebar = ({ onQuestionSelect, questionStatus, seconds, setQuestionStatus }) => {
+const RightSidebar = ({ onQuestionSelect, questionStatus, seconds, setQuestionStatus,  answeredCount, notAnsweredCount, answeredmarkedForReviewCount, markedForReviewCount, VisitedCount}) => {
 
     const [activeQuestion, setActiveQuestion] = useState(0);
     const [answeredQuestions, setAnsweredQuestions] = useState([]);
@@ -303,14 +303,14 @@ const RightSidebar = ({ onQuestionSelect, questionStatus, seconds, setQuestionSt
             <div className='sidebar-footer'>
                 <h4 className='sidebar-footer-header'>Legend</h4>
                 <div className='footer-btns'>
-                    <div className='inst-btns'><button className='instruction-btn1'>0</button><p>Answerd</p><br /></div><br />
-                    <div className='inst-btns'><button className='instruction-btn2'>0</button><p>Not Answered</p><br /></div><br />
-                    <div className='inst-btns'><button className='instruction-btn3'>0</button><p>Marked</p><br /></div><br />
-                    <div className='inst-btns'><button className='instruction-btn4'>0</button><p>Answered but marked for review</p></div><br />
-                    <div className='inst-btns'><button className='instruction-btn5'>0</button><p>Not Visited</p></div>
+                    <div className='inst-btns'><button className='instruction-btn1'>{answeredCount}</button><p>Answerd</p><br /></div><br />
+                    <div className='inst-btns'><button className='instruction-btn2'>{notAnsweredCount}</button><p>Not Answered</p><br /></div><br />
+                    <div className='inst-btns'><button className='instruction-btn3'>{answeredmarkedForReviewCount}</button><p>Marked</p><br /></div><br />
+                    <div className='inst-btns'><button className='instruction-btn4'>{markedForReviewCount}</button><p>Answered but marked for review</p></div><br />
+                    <div className='inst-btns'><button className='instruction-btn5'>{VisitedCount}</button><p>Not Visited</p></div>
                 </div>
             </div>
-
+            
         </div>
     )
 
