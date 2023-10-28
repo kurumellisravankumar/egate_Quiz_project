@@ -1224,7 +1224,12 @@ import RightSidebar from "../../Components/RightSidebar/RightSidebar";
 // import "../../Components/RightSidebar/RightSidebar.css";
 import { DotSpinner } from "@uiball/loaders";
 
-const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
+const Paper = () => {
+
+  const [questionStatus, setQuestionStatus] = useState(["notAnswered", ...Array(29).fill("notVisited")]);
+
+ 
+
   const [Qimages, setQImages] = useState([]);
   const [OPTimages, setOPTImages] = useState([]);
   const [activeQuestion, setActiveQuestion] = useState(0);
@@ -1293,7 +1298,12 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
     const updatedSelectedAnswers = [...selectedAnswers];
     updatedSelectedAnswers[activeQuestion] = OptionLetter;
     setSelectedAnswers(updatedSelectedAnswers);
+
+    const updatedQuestionStatus = [...questionStatus];
+    updatedQuestionStatus[activeQuestion] = "answered";
+    setQuestionStatus(updatedQuestionStatus);
   };
+
 
   const clearResponse = () => {
     const updatedSelectedAnswers = [...selectedAnswers];
@@ -1321,6 +1331,8 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
   };
 
   const onClickNext = () => {
+
+    
     setCurrentQuestionIndex((prevIndex) => {
       // Save the current timer value for the question
 
@@ -1329,11 +1341,55 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
       updatedTimers[prevIndex] = timer;
 
       setTimers(updatedTimers);
-
-      // Move to the next question
-
-      return prevIndex + 1;
+      return prevIndex + 1 ;
+      
     });
+
+    
+
+ 
+      // // Mark the question as not answered
+      
+      // const updatedQuestionStatus = [...questionStatus];
+      // if (!selectedAnswers[activeQuestion] === "answered") {
+      //   updatedQuestionStatus[activeQuestion] = "notAnswered";
+      // }
+      // else if(!markForReview()===true){
+      //   markForReview()
+      // }
+      // else if (selectedAnswers[activeQuestion]) {
+      //   updatedQuestionStatus[activeQuestion] = "answered";
+      // } else if(!markForReview()===false) {
+      //   markForReview()
+      // }
+
+      // setQuestionStatus(updatedQuestionStatus);
+
+
+      const updatedQuestionStatus = [...questionStatus];
+      // updatedQuestionStatus[activeQuestion] = "notAnswered";
+  
+      // Set status of the next question (if any) to "notAnswered"
+      if (activeQuestion < Qimages.length - 1) {
+        updatedQuestionStatus[activeQuestion + 1] = "notAnswered";
+      }else if (!selectedAnswers[activeQuestion] === "answered") {
+          updatedQuestionStatus[activeQuestion] = "notAnswered";
+        }
+        else if(!markForReview()===true){
+          markForReview()
+        }
+        else if (selectedAnswers[activeQuestion]) {
+          updatedQuestionStatus[activeQuestion] = "answered";
+        } else if(!markForReview()===false) {
+          markForReview()
+        }
+  
+      setQuestionStatus(updatedQuestionStatus);
+
+
+
+
+
     const correctAnswer = Qimages[activeQuestion].correct_answer; // Replace 'correct_answer' with the actual property name
     const selectedAnswer = selectedAnswers[activeQuestion];
 
@@ -1352,11 +1408,30 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
 
     if (activeQuestion < Qimages.length - 1) {
       setActiveQuestion((prevActiveQuestion) => prevActiveQuestion + 1);
-    } else {
+  } else {
       setShowResult(true);
-      calculateResult(); // Implement this function for additional result calculations
-    }
+      calculateResult();
+  }
   };
+
+
+  
+  const markForReview = () => {
+    // Update questionStatus for the marked question
+    const updatedQuestionStatus = [...questionStatus];
+    if (selectedAnswers[activeQuestion]) {
+      updatedQuestionStatus[activeQuestion] = "Answered but marked for review";
+      // if(selectedAnswers[activeQuestion] === "Answered but marked for review"){
+      //   updatedQuestionStatus[activeQuestion] = "Answered but marked for review";
+      // }
+    } 
+    else if (!selectedAnswers[activeQuestion])  {
+      updatedQuestionStatus[activeQuestion] = "marked";
+    }
+    
+    
+    setQuestionStatus(updatedQuestionStatus);
+};
 
   // const formatTime = (seconds) => {
   //   const hours = Math.floor(seconds / 3600);
@@ -1491,10 +1566,6 @@ const Paper = ({ onQuestionSelect, questionStatus, seconds1 }) => {
     setCurrentQuestionIndex(questionNumber - 1);
     setActiveQuestion(questionNumber - 1);
 };
-
-
-
-
 
   return (
     <div className="main">
@@ -1716,7 +1787,7 @@ Chemistry
         </div>
 
         <div className="flex-right">
-          <button className="clear-btn">Mark for Review & Next</button>
+          <button className="clear-btn" onClick={markForReview}>Mark for Review & Next</button>
           <button className="clear-btn" onClick={clearResponse}>
             Clear Response
           </button>
@@ -1738,7 +1809,7 @@ Chemistry
         </div>
       </div>
       <div className="rightsidebar">
-        <RightSidebar onQuestionSelect={handleQuestionSelect} questionStatus={questionStatus}  />
+        <RightSidebar onQuestionSelect={handleQuestionSelect} questionStatus={questionStatus} setQuestionStatus={setQuestionStatus}  />
        
       </div>
     </div>

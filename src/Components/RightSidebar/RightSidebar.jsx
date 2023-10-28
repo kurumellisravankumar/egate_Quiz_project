@@ -130,17 +130,32 @@ const buttons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 
 // )
 
 
-const RightSidebar = ({ onQuestionSelect, questionStatus, seconds }) => {
+const RightSidebar = ({ onQuestionSelect, questionStatus, seconds, setQuestionStatus }) => {
 
-
+    const [activeQuestion, setActiveQuestion] = useState(0);
     const [answeredQuestions, setAnsweredQuestions] = useState([]);
     const [isPaused, setIsPaused] = useState(false);
 
     const handleButtonClick = (questionNumber) => {
-        onQuestionSelect(questionNumber);
-        setAnsweredQuestions([...answeredQuestions, questionNumber]);
-        setIsPaused(false);
-    }
+    onQuestionSelect(questionNumber);
+    setAnsweredQuestions([...answeredQuestions, questionNumber]);
+    setIsPaused(false);
+
+    const isVisitedButNotAnswered = questionStatus[questionNumber - 1] === "notVisited";
+  if (isVisitedButNotAnswered) {
+    // Mark the question as "not answered"
+    const updatedQuestionStatus = [...questionStatus];
+    updatedQuestionStatus[questionNumber - 1] = "notAnswered";
+    setQuestionStatus(updatedQuestionStatus);
+  }else if (questionStatus[questionNumber - 1] === "marked") {
+    // Mark the question as "Marked for review" by default if not visited
+    const updatedQuestionStatus = [...questionStatus];
+    updatedQuestionStatus[questionNumber - 1] = "markedForReview";
+    setQuestionStatus(updatedQuestionStatus);
+  }
+
+
+  };
 
 
      
@@ -174,18 +189,24 @@ const RightSidebar = ({ onQuestionSelect, questionStatus, seconds }) => {
             clearInterval(interval);
         };
     }, [currentQuestionIndex, timers, isPaused]);
+    
 
+  const visted=()=>{
+    setQuestionStatus(Array(1).fill("Visited"))
+  }
     const renderList = buttons.map((item, index) => {
-        let className = 'quesAns-btn';
+        let className = 'quesAns-btn ';
         if (questionStatus && questionStatus[index] === 'answered') {
-            className += 'instruction-btn1';
+            className += ' instruction-btn1';
         }else if(questionStatus && questionStatus[index] === 'notAnswered') {
-            className += 'instruction-btn2';
+            className += ' instruction-btn2';
         }else if (questionStatus && questionStatus[index] === 'marked') {
-            className += 'instruction-btn3';
-        } else if (questionStatus && questionStatus[index] === 'notVisited') {
-            className += 'instruction-btn5';
-        }
+            className += ' instruction-btn3';
+        }else if (questionStatus && questionStatus[index] === 'Answered but marked for review') {
+            className += ' instruction-btn4';
+        }  else if (questionStatus && questionStatus[index] === 'Visited') {
+            className += ' instruction-btn6';
+        }           
         return (
             <div key={item}>
                 <button className={className} onClick={() => handleButtonClick(item)}>{item}</button>

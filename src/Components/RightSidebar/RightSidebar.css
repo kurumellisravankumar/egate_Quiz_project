@@ -115,5 +115,12 @@
 .instruction-btn5 {
     border: 1px solid black;
     border-radius: 5px;
-    padding: 9px;
+    padding: 9px;   
+}
+
+.instruction-btn6 {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 9px;   
+    background: red;
 }
