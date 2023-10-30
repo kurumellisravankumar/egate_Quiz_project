@@ -1676,6 +1676,7 @@ const Paper = () => {
                             }
                           />
                           <label className="alpha-index">
+                            
                             <img
                               src={`data:image/png;base64,${optImage.image_data}`}
                               alt={`OPTImage ${optIndex + 2}-${optIndex + 5}`}
