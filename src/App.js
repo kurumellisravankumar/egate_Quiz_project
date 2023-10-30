@@ -9,13 +9,18 @@ import ChapterTest from './Pages/ChapterTest/ChapterTest'
 import PreviousTest from './Pages/PreviousTest/PreviousTest'
 import Instructions from './Pages/Instructions/Instructions';
 import General_intructions_page from './Pages/General_intructions_page/General_intructions_page'
+import { Signup } from './Login & Signup/Signup';
+
 
 function App() {
   return (
     <BrowserRouter>
     {/* <Instructions/> */}
+   
        <Routes>
-          <Route path='/' element={<Home/>}/>
+          {/* <Route path='/' element={<Home/>}/> */}
+          <Route path='/' element={<Signup/>}/>
+
         <Route path='/Paper' element={<Paper />} />
         <Route path='/SubjectTest' element={<SubjectTest/>} />
         <Route path='/FullTest' element={<FullTest />} />

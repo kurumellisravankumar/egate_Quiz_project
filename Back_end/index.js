@@ -13,9 +13,10 @@ const db = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "naveen",
-    database: "egquizdatabase",
-});
+    // database: "egquizdatabase",
+    database: "egate_quiz_signup_api",
 
+});
 db.connect((err) => {
     if (err) {
         console.error('Error connecting to MySQL:', err);
@@ -23,6 +24,25 @@ db.connect((err) => {
         console.log("Connected to MySQL");
     }
 });
+
+// const dbSignup = mysql.createConnection({
+//     host: "localhost",
+//     user: "root",
+//     password: "naveen",
+//     // database: "egquizdatabase",
+//     database: "egate_quiz_signup_api",
+
+// });
+
+// dbSignup.connect((err) => {
+//     if (err) {
+//         console.error('Error connecting to MySQL:', err);
+//     } else {
+//         console.log("Connected to MySQL");
+//     }
+// });
+
+
 
 app.use(cors());
 
@@ -121,6 +141,49 @@ app.get('/images/:id', (req, res) => {
 //     });
 // });
 
+
+
+// Signup --------------------------
+app.post('signup/', (req, res) => {
+    const {
+        name,
+        emailAddress,
+        mobileNumber,
+        password,
+        state,
+        city,
+        course
+    } = req.body
+
+    const sql = 'INSERT INTO signup SET ?';
+    const values = {
+        name,
+        emailAddress,
+        mobileNumber,
+        password,
+        state,
+        city,
+        course
+    }
+
+    db.query(sql, values, (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).json({ error: 'Error in database operatopns' });
+        }
+        return res.status(200).json({ success: true, message: 'Record inserted success' })
+    });
+});
+app.get("/", (req,res) => {
+    const sql = "select * from signup ?";
+   //const sql = "SELECT *FROM  studentdata WHERE ID=(SELECT LAST_INSERT_ID())";
+  // const Id = req.params.id;
+  
+   db.query(sql,(err,result) => {
+       if(err) return res.json({Message: 'EROR in server getting data'});
+       return res.json(result);
+   })
+})
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
