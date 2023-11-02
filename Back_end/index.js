@@ -7,13 +7,13 @@ const fs = require('fs');
 const cheerio = require('cheerio');
 const app = express();
 
-const port = 10000;
+const port = 10001;
 
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
-    database: "egquizdatabase2",
+    database: "old quiz images_table",
 });
 
 db.connect((err) => {
