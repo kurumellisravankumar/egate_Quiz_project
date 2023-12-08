@@ -64,14 +64,6 @@
 // }
 
 
-
-
-
-
-
-
-
-
 .Quiz_header {
     width: 100%;
     display: grid;
@@ -273,11 +265,13 @@
     border-top: 1px solid rgba(119, 115, 115, 0.644);
     padding: 20px 0;
 }
-.gn_next_btn_container  button{
+
+.gn_next_btn_container button {
     background: none;
     border: none;
 
 }
+
 .gn_next_btn {
     background: #0741ff;
     padding: 8px 60px;
@@ -288,4 +282,46 @@
     align-items: center;
     border-radius: 10px;
     font-weight: 700;
+}
+.gn_next_btn_bull{
+    background: #0741ff58;
+    padding: 8px 60px;
+    color: #ffffff;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+
+.gn_checkbox {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 95%;
+    margin: 0 auto;
+    font-size: 18px;
+}
+
+.gn_checkbox b {
+    font-weight: 400;
+    color: #0741ff;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.gn_checkbox .checkbox {
+
+    width: 20px;
+    height: 20px;
+
+}
+
+.gn_checkbox .checkbox {
+
+    width: 15px;
+    height: 15px;
+
 }

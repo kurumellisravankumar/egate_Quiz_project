@@ -1,10 +1,7 @@
-
 // import React, { useEffect, useRef, useState } from 'react';
 // import './SubjectTest.css'
 // import { useNavigate } from 'react-router-dom'
 // import HomeHeader from '../../Components/HomeHeader/HomeHeader';
-
-
 
 // const SubjectTest = ({ seconds }) => {
 
@@ -27,7 +24,7 @@
 //     };
 
 //     const myComponentStyle1 = {
-//         color: 'white'   
+//         color: 'white'
 //     }
 //     const myComponentStyle2 = {
 //         color: 'white'
@@ -68,139 +65,147 @@
 
 // export default SubjectTest
 
-
-
-
-
-
-import React, { useEffect,  useState } from 'react';
-import './SubjectTest.css'
-import { Link, NavLink } from "react-router-dom";  //useNavigate,
-import logo from '../../Images/logo.jpg'
-import LeftSidebar from '../../Components/LeftSidebar/LeftSidebar'
-import Instructions from '../Instructions/Instructions'
+import React, { useEffect, useState } from "react";
+import "./SubjectTest.css";
+import { Link, NavLink } from "react-router-dom";
+import axios from "axios";
+import logo from "../../Images/logo.jpg";
+import LeftSidebar from "../../Components/LeftSidebar/LeftSidebar";
+import Instructions from "../Instructions/Instructions";
 import PhoneInput from "react-phone-number-input";
-import 'react-phone-number-input/style.css'
-const SubjectTest = () => { //{ seconds }
+import "react-phone-number-input/style.css";
+const SubjectTest = () => {
+  //{ seconds }
 
-    // const [countdown, setCountdown] = useState(seconds);
-    // const timerId = useRef();
+  const [testCard, setTestCard] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:4009/test_paper/201")
+      .then((response) => {
+        setTestCard(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
 
-    // useEffect(() => {
-    //     if (countdown <= 0) {
-    //         clearInterval(timerId.current);
-    //         alert("End");
-    //     }
-    // }, [countdown]);
-    // const navigate = useNavigate();
-    // const startCountdown = () => {
-    //     timerId.current = setInterval(() => {
-    //         setCountdown((prev) => prev - 1);
-    //     }, 1000);
-    //     navigate('/Paper');
-    // };
+  // const [countdown, setCountdown] = useState(seconds);
+  // const timerId = useRef();
 
-    const myComponentStyle1 = {
-        // color: 'white'
-    }
-    const myComponentStyle2 = {
-        // color: 'white'
-    }
-    // const [showAlert1, setShowAlert1] = useState(false);
-    // const [showAlert2, setShowAlert2] = useState(false);
+  // useEffect(() => {
+  //     if (countdown <= 0) {
+  //         clearInterval(timerId.current);
+  //         alert("End");
+  //     }
+  // }, [countdown]);
+  // const navigate = useNavigate();
+  // const startCountdown = () => {
+  //     timerId.current = setInterval(() => {
+  //         setCountdown((prev) => prev - 1);
+  //     }, 1000);
+  //     navigate('/Paper');
+  // };
 
-    // const openAlert1 = () => {
-    //     setShowAlert1(true);
-    // };
+  const myComponentStyle1 = {
+    // color: 'white'
+  };
+  const myComponentStyle2 = {
+    // color: 'white'
+  };
+  // const [showAlert1, setShowAlert1] = useState(false);
+  // const [showAlert2, setShowAlert2] = useState(false);
 
-    // const closeAlert1 = () => {
-    //     setShowAlert1(false);
-    // };
+  // const openAlert1 = () => {
+  //     setShowAlert1(true);
+  // };
 
-    // const openAlert2 = () => {
-    //     setShowAlert2(true);
-    // };
+  // const closeAlert1 = () => {
+  //     setShowAlert1(false);
+  // };
 
-    // const closeAlert2 = () => {
-    //     setShowAlert2(false);
-    // };
+  // const openAlert2 = () => {
+  //     setShowAlert2(true);
+  // };
 
-    // const countries = [
-    //     { id: "1", name: "INDIA" },
-    //     { id: "2", name: "USA" },
-    //     { id: "3", name: "GERMANY" },
-    //     { id: "4", name: "KOREA" },
-    //     { id: "5", name: "AFRICA" },
-    // ];
+  // const closeAlert2 = () => {
+  //     setShowAlert2(false);
+  // };
 
-    // const states = [
-    //     { id: "1", countryId: "1", name: "Haryana" },
-    //     { id: "2", countryId: "1", name: "Delhi" },
-    //     { id: "3", countryId: "1", name: "Telangana" },
-    //     { id: "4", countryId: "1", name: "Andhra Pradesh" },
-    //     { id: "5", countryId: "2", name: "Texas" },
-    //     { id: "6", countryId: "2", name: "California" },
-    // ];
+  // const countries = [
+  //     { id: "1", name: "INDIA" },
+  //     { id: "2", name: "USA" },
+  //     { id: "3", name: "GERMANY" },
+  //     { id: "4", name: "KOREA" },
+  //     { id: "5", name: "AFRICA" },
+  // ];
 
-    // const cities = [
-    //     { id: "1", stateId: "1", name: "Faridabad" },
-    //     { id: "2", stateId: "1", name: "Palwal" },
-    //     { id: "3", stateId: "2", name: "Mandi House" },
-    //     { id: "4", stateId: "2", name: "kalka Ji" },
-    //     { id: "5", stateId: "3", name: "Hyderabad" },
-    //     { id: "6", stateId: "3", name: "Gachibowli" },
+  // const states = [
+  //     { id: "1", countryId: "1", name: "Haryana" },
+  //     { id: "2", countryId: "1", name: "Delhi" },
+  //     { id: "3", countryId: "1", name: "Telangana" },
+  //     { id: "4", countryId: "1", name: "Andhra Pradesh" },
+  //     { id: "5", countryId: "2", name: "Texas" },
+  //     { id: "6", countryId: "2", name: "California" },
+  // ];
 
-    //     { id: "1", stateId: "5", name: "Houston" },
-    //     { id: "2", stateId: "5", name: "Austin" },
-    //     { id: "3", stateId: "6", name: "Los Angeles" },
-    //     { id: "4", stateId: "6", name: "Son Diego" },
-    //     { id: "5", stateId: "4", name: "Vijyawada" },
-    //     { id: "6", stateId: "4", name: "Thirupati" },
-    // ];
+  // const cities = [
+  //     { id: "1", stateId: "1", name: "Faridabad" },
+  //     { id: "2", stateId: "1", name: "Palwal" },
+  //     { id: "3", stateId: "2", name: "Mandi House" },
+  //     { id: "4", stateId: "2", name: "kalka Ji" },
+  //     { id: "5", stateId: "3", name: "Hyderabad" },
+  //     { id: "6", stateId: "3", name: "Gachibowli" },
 
-    // const [country, setCountry] = useState([]);
-    // const [state, setState] = useState([]);
-    // const [city, setCity] = useState([]);
+  //     { id: "1", stateId: "5", name: "Houston" },
+  //     { id: "2", stateId: "5", name: "Austin" },
+  //     { id: "3", stateId: "6", name: "Los Angeles" },
+  //     { id: "4", stateId: "6", name: "Son Diego" },
+  //     { id: "5", stateId: "4", name: "Vijyawada" },
+  //     { id: "6", stateId: "4", name: "Thirupati" },
+  // ];
 
-    // useEffect(() => {
-    //     setCountry(countries);
-    // }, []);
+  // const [country, setCountry] = useState([]);
+  // const [state, setState] = useState([]);
+  // const [city, setCity] = useState([]);
 
-    // const handleCountry = (id) => {
-    //     const dt = states.filter((x) => x.countryId === id);
-    //     setState(dt);
-    // };
+  // useEffect(() => {
+  //     setCountry(countries);
+  // }, []);
 
-    // const handleState = (id) => {
-    //     const dt = cities.filter((x) => x.stateId === id);
-    //     setCity(dt);
-    // };
+  // const handleCountry = (id) => {
+  //     const dt = states.filter((x) => x.countryId === id);
+  //     setState(dt);
+  // };
 
-    // const [value, setValue] = useState();
+  // const handleState = (id) => {
+  //     const dt = cities.filter((x) => x.stateId === id);
+  //     setCity(dt);
+  // };
 
-    // var User = null;
+  // const [value, setValue] = useState();
 
-    // const [isOpen1, setIsOpen1] = useState(false);
-    // const [isOpen2, setIsOpen2] = useState(false);
-    return (
-        <div className="main_conatiner">
+  // var User = null;
 
-            {/*******************starting code NAVBAR CONTENT ****************/}
-            <div>
-                <div className='navbar-div'>
-                    <img src={logo} alt="logo" width='250px' />
+  // const [isOpen1, setIsOpen1] = useState(false);
+  // const [isOpen2, setIsOpen2] = useState(false);
+  return (
+    <div className="main_conatiner">
+      {/*******************starting code NAVBAR CONTENT ****************/}
+      <div>
+        <div className="navbar-div">
+          <img src={logo} alt="logo" width="250px" />
 
-                    <div className='auth-btn'>
-                        <div className="Login_logOUT">
-                            {/* {!User ? ( */}
-                                {/* <div >
+          <div className="auth-btn">
+            <div className="Login_logOUT">
+              {/* {!User ? ( */}
+              {/* <div >
                                     <div><button onClick={openAlert1}>LOGIN</button>
                                         <button onClick={openAlert2}>SIGNUP</button></div>
 
 
                                 </div> */}
-                            {/* // ) : ( */}
-                                {/* <>
+              {/* // ) : ( */}
+              {/* <>
                                     <button onClick={() => setIsOpen1(!isOpen1)}>{User}</button>
                                     {isOpen1 && (
                                         <div>
@@ -221,9 +226,9 @@ const SubjectTest = () => { //{ seconds }
                                         )}
                                     </div>
                                 </> */}
-                            {/* )} */}
-                        </div>
-                        {/* <div>
+              {/* )} */}
+            </div>
+            {/* <div>
               {
                 User = null ?<div><button onClick={openAlert1}>LOGIN</button> 
                   <button onClick={openAlert2}>SIGNUP</button></div>: 
@@ -247,9 +252,9 @@ const SubjectTest = () => { //{ seconds }
                 </>
               }
             </div> */}
-                        {/* <div><button onClick={openAlert1}>LOGIN</button></div> */}
-                        {/* <div><button onClick={openAlert2}>SIGNUP</button></div> */}
-                        {/* {
+            {/* <div><button onClick={openAlert1}>LOGIN</button></div> */}
+            {/* <div><button onClick={openAlert2}>SIGNUP</button></div> */}
+            {/* {
               dropDown && (
                 <div>
                   <button onClick={() => setIsOpen(!isOpen)}>Toggle Dropdown</button>
@@ -262,17 +267,14 @@ const SubjectTest = () => { //{ seconds }
                 </div>
               )
             } */}
-                    </div>
-                </div>
+          </div>
+        </div>
+      </div>
+      {/*******************end code NAVBAR CONTENT ****************/}
 
-            </div>
-            {/*******************end code NAVBAR CONTENT ****************/}
+      {/********************* Show alert 1 start code ****************/}
 
-
-
-            {/********************* Show alert 1 start code ****************/}
-
-            {/* {showAlert1 && (
+      {/* {showAlert1 && (
                 <div id="divContent1">
                  
                     <div>
@@ -312,12 +314,10 @@ const SubjectTest = () => { //{ seconds }
                 </div>
             )} */}
 
-            {/********************* Show alert 1 end code ****************/}
+      {/********************* Show alert 1 end code ****************/}
 
-
-
-            {/********************* Show alert 2 start code ****************/}
-            {/* {showAlert2 && (
+      {/********************* Show alert 2 start code ****************/}
+      {/* {showAlert2 && (
                 <div id='divContent2'>
 
                     <div>
@@ -402,177 +402,168 @@ const SubjectTest = () => { //{ seconds }
 
                 </div>
             )} */}
-            {/********************* Show alert 2 end code ****************/}
+      {/********************* Show alert 2 end code ****************/}
 
+      <div className="ls-bar-exam-page">
+        {/****************** LeftSidebar Component render *******************/}
+        <div>
+          <LeftSidebar />
+        </div>
 
-            <div className="ls-bar-exam-page">
-
-                {/****************** LeftSidebar Component render *******************/}
-                <div>
-                    <LeftSidebar />
+        {/********************starting code Exam page Header  *****************/}
+        <div className="exam-middle-div">
+          <div>
+            <h3 className="exam-heading">JEE MAIN Full Test</h3>
+          </div>
+          <div className="home-main-page">
+            {/* <h2>JEE MAIN Full Test</h2> */}
+            <div>
+              <div>
+                <div className="header-div1">
+                  <p className="div-heading">Online Test for JEE Main</p>
                 </div>
-
-                {/********************starting code Exam page Header  *****************/}
-                <div className="exam-middle-div">
-                    <div>
-                        <h3 className="exam-heading">JEE MAIN Full Test</h3>
-                    </div>
-                    <div className="home-main-page">
-                        {/* <h2>JEE MAIN Full Test</h2> */}
-                        <div>
-                            <div>
-                                <div className="header-div1">
-                                    <p className="div-heading">Online Test for JEE Main</p>
-                                </div>
-                                <div className="header-div2">
-                                    <div className="header-links">
-                                        <NavLink activeclassname="active" className="content-link">
-                                            Full Test
-                                        </NavLink>
-                                        <NavLink activeclassname="active" className="content-link">
-                                            Subject Test
-                                        </NavLink>
-                                        <NavLink activeclassname="active" className="content-link">
-                                            Chapter Test
-                                        </NavLink>
-                                        <NavLink activeclassname="active" className="content-link">
-                                            Previous Years{" "}
-                                        </NavLink>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {/********************end code Exam page Header  *****************/}
-
-
-
-                        {/********************starting testcard code  *****************/}
-                        <div className="test-card">
-                            <div className="test-card-header">
-                                <div className="test-contents1">
-                                    <h3 className="jee-test-1">JEE MAIN 2024 TEST-1</h3>
-                                    <span
-                                        style={myComponentStyle2}
-                                        class="material-symbols-outlined"
-                                    >
-                                        lock_open
-                                    </span>
-                                </div>
-                                <p className="testCard-second-header">
-                                    Available Till: 31 May,2024
-                                </p>
-                                <p className="free-title">FREE</p>
-                            </div>
-                            <div>
-                                <div className="test-contents2">
-                                    <span
-                                        style={myComponentStyle1}
-                                        class="material-symbols-outlined"
-                                    >
-                                        help
-                                    </span>
-                                    <p>90 Questions</p>
-                                </div>
-
-                                <div className="test-contents2">
-                                    <span
-                                        style={myComponentStyle1}
-                                        class="material-symbols-outlined"
-                                    >
-                                        schedule
-                                    </span>
-                                    <p>180 Minutes</p>
-                                </div>
-
-                                <div className="test-contents2">
-                                    <span
-                                        style={myComponentStyle1}
-                                        class="material-symbols-outlined"
-                                    >
-                                        trending_up
-                                    </span>
-                                    <p>300 Marks</p>
-
-                                </div>
-
-                                {/* <div className='test-btn'><button onClick={startCountdown} className='play-btn'><span class="material-symbols-outlined">
-                        chevron_right
-                    </span>Start Test</button></div> */}
-                                {/* <div className="test-btn">
-                                    <button className="play-btn" onClick={openAlert1}>
-                                        <span class="material-symbols-outlined">chevron_right</span>
-                                        Start Test
-                                    </button>
-
-                                    
-                                    element={<Instructions />}
-                                </div> */}
-                                <div className='test-btn'>
-                                           <Link className='play-btn' to='/Instructions' element={<Instructions />}><span class="material-symbols-outlined">
-                                                    chevron_right
-                                                </span>Start Test</Link>
-                                         </div>
-                            </div>
-                        </div>
-
-                        {/********************end testcard code  *****************/}
-
-                    </div>
-
+                <div className="header-div2">
+                  <div className="header-links">
+                  <NavLink to='/' activeclassname="active" className="content-link">
+                      Full Test
+                    </NavLink>
+                  <NavLink to='/SubjectTest' activeclassname="active" className="content-link">
+                      Subject Test
+                    </NavLink>
+               
+                    {/* <NavLink activeclassname="active" className="content-link">
+                      Subject Test
+                    </NavLink> */}
+                    <NavLink  to='/ChapterTest'  activeclassname="active" className="content-link">
+                      Chapter Test
+                    </NavLink>
+                    <NavLink  to='/PreviousTest'  activeclassname="active" className="content-link">
+                      Previous Years{" "}
+                    </NavLink>
+                  </div>
                 </div>
-
+              </div>
             </div>
+            {/********************end code Exam page Header  *****************/}
 
+            {/********************starting testcard code  *****************/}
+            <div className="test-card">
+              <ul>
+                {/* {testData.map((item) => ( */}
+                {/* <li key={item.test_year_id}> */}
+                <li>
+                  <div className="test-card-header">
+                    <div className="test-contents1">
+                      <h3>
+                        JEE MAIN 2024 TEST-1
+                        {/* {item.year}-{item.paper_name} */}
+                      </h3>
+                      <span
+                        style={myComponentStyle2}
+                        class="material-symbols-outlined"
+                      >
+                        lock_open
+                      </span>
+                    </div>
+                    <p className="testCard-second-header">
+                      Available Till: 31 May,2024
+                    </p>
+                    <p className="free-title">FREE</p>
+                  </div>
+                  <div>
+                    <div className="test-contents2">
+                      <span
+                        style={myComponentStyle1}
+                        class="material-symbols-outlined"
+                      >
+                        help
+                      </span>
+                      <p>90 Questions</p>
+                    </div>
+                    <div className="test-contents2">
+                      <span
+                        style={myComponentStyle1}
+                        class="material-symbols-outlined"
+                      >
+                        schedule
+                      </span>
+                      <p>180 Minutes</p>
+                    </div>
+                    <div className="test-contents2">
+                      <span
+                        style={myComponentStyle1}
+                        class="material-symbols-outlined"
+                      >
+                        trending_up
+                      </span>
+                      <p>300 Marks</p>
+                    </div>
+                    <div className="test-btn">
+                      <Link
+                        className="play-btn"
+                        to="/Instructions"
+                        element={<Instructions />}
+                      >
+                        <span class="material-symbols-outlined">
+                          chevron_right
+                        </span>
+                        Start Test
+                      </Link>
+                    </div>
+                  </div>
+                </li>
+                {/* ))} */}
+              </ul>
+            </div>
+            {/********************end testcard code  *****************/}
+          </div>
+        </div>
+      </div>
 
-            {/*       
+      {/*       
       {
         afterlogin_dashboard &&
         <div className="dashboard" id="dashboard">
 
         </div>
       } */}
+    </div>
+    // <div className='home-main-page'>
+    //     <div>
+    //         <HomeHeader />
+    //     </div>
+    //     <div className='test-card'>
+    //         <div className='test-card-header'>
+    //             <div className='test-contents1'><h3 className='jee-test-1'>JEE MAIN 2024 TEST-1</h3><span style={myComponentStyle2} class="material-symbols-outlined">
+    //                 lock_open
+    //             </span></div>
+    //             <p className='testCard-second-header'>Available Till: 31 May,2024</p>
+    //             <p className='free-title'>FREE</p>
+    //         </div>
+    //         <div>
+    //             <div className='test-contents2'><span style={myComponentStyle1} class="material-symbols-outlined">help</span><p>90 Questions</p></div>
 
+    //             <div className='test-contents2'><span style={myComponentStyle1} class="material-symbols-outlined">
+    //                 schedule
+    //             </span><p>180 Minutes</p></div>
 
+    //             <div className='test-contents2'><span style={myComponentStyle1} class="material-symbols-outlined">
+    //                 trending_up
+    //             </span><p>300 Marks</p></div>
 
+    //             {/* <div className='test-btn'><button onClick={startCountdown} className='play-btn'><span class="material-symbols-outlined">
+    //                 chevron_right
+    //             </span>Start Test</button></div> */}
+    //             <div className='test-btn'>
+    //                 <Link className='play-btn' to='/Instructions' element={<Instructions />}><span class="material-symbols-outlined">
+    //                     chevron_right
+    //                 </span>Start Test</Link>
+    //             </div>
 
-        </div>
-        // <div className='home-main-page'>
-        //     <div>
-        //         <HomeHeader />
-        //     </div>
-        //     <div className='test-card'>
-        //         <div className='test-card-header'>
-        //             <div className='test-contents1'><h3 className='jee-test-1'>JEE MAIN 2024 TEST-1</h3><span style={myComponentStyle2} class="material-symbols-outlined">
-        //                 lock_open
-        //             </span></div>
-        //             <p className='testCard-second-header'>Available Till: 31 May,2024</p>
-        //             <p className='free-title'>FREE</p>
-        //         </div>
-        //         <div>
-        //             <div className='test-contents2'><span style={myComponentStyle1} class="material-symbols-outlined">help</span><p>90 Questions</p></div>
+    //         </div>
+    //     </div>
+    // </div>
+  );
+};
 
-        //             <div className='test-contents2'><span style={myComponentStyle1} class="material-symbols-outlined">
-        //                 schedule
-        //             </span><p>180 Minutes</p></div>
-
-        //             <div className='test-contents2'><span style={myComponentStyle1} class="material-symbols-outlined">
-        //                 trending_up
-        //             </span><p>300 Marks</p></div>
-
-        //             {/* <div className='test-btn'><button onClick={startCountdown} className='play-btn'><span class="material-symbols-outlined">
-        //                 chevron_right
-        //             </span>Start Test</button></div> */}
-        //             <div className='test-btn'>
-        //                 <Link className='play-btn' to='/Instructions' element={<Instructions />}><span class="material-symbols-outlined">
-        //                     chevron_right
-        //                 </span>Start Test</Link>
-        //             </div>
-
-        //         </div>
-        //     </div>
-        // </div>
-    )
-}
-
-export default SubjectTest
-
+export default SubjectTest;

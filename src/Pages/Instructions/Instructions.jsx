@@ -135,7 +135,7 @@
 
 import React from "react";
 import { AiOutlineArrowRight } from "react-icons/ai"
-import { Link } from "react-router-dom";
+import { Link,useParams } from "react-router-dom";
 import './Instructions.scss'
 // =============================== nav-data ===============================
 import { Navbar, Intro_content } from "../../Data/Introduction_page_DATA";
@@ -154,6 +154,8 @@ const Introduction_page = () => {
 export default Introduction_page;
 
 export const Header = () => {
+
+    
     return (
         <>
             {Navbar.map((nav, index) => {
@@ -172,6 +174,7 @@ export const Header = () => {
     );
 };
 export const Intro_container = () => {
+    const { testCreationTableId } = useParams();
     return (
         <>
             {Intro_content.map((Intro_content, index) => {
@@ -262,7 +265,7 @@ export const Intro_container = () => {
                 );
             })}
             <div className="intro_next_btn_container">
-                <Link to='/General_intructions_page' className="intro_next_btn">NEXT <AiOutlineArrowRight /></Link>
+                <Link to={`/General_intructions_page/${testCreationTableId}`}className="intro_next_btn">NEXT <AiOutlineArrowRight /></Link>
             </div>
         </>
     );

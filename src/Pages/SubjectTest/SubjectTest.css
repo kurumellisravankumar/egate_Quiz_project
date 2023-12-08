@@ -341,7 +341,8 @@
      /* margin-top: 2px; */
      border-bottom: 1px solid rgb(182, 167, 167);
      display: flex;
-     flex-wrap: wrap;
+    flex-direction: column;
+    align-items: baseline;
  }
 
  .free-title {
@@ -394,6 +395,20 @@
      padding: 10px;
      gap: 5px;
      /* color: white; */
+ }
+
+ .test-contents2 li a{
+    background: rgb(164 162 241);
+    padding: 5px 10px ;
+    color: #000000;
+    font-weight: 700;
+    border-radius: 10px;
+    &:hover{
+        border: 1px solid rgba(0, 0, 0, 0.35);
+        background: none;
+        color: #000;
+        /* text-decoration: underline; */
+    }
  }
 
  /********************End testcard code styling *****************/

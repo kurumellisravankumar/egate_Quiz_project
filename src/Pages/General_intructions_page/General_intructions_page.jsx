@@ -3,9 +3,13 @@ import {
     General_intructions_page_content,
     Navbar,
 } from "../../Data/Introduction_page_DATA"
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate , useParams} from "react-router-dom";
+import axios from "axios";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import Paper from '../Paper/Paper';
+
+// import Paper1 from '../Paper/Paper1'
+// import Paper1 from '../Paper/Paper1';
 
 const General_intructions_page = () => {
     return (
@@ -35,29 +39,89 @@ export const General_intructions_page_header = () => {
     );
 };
 
-export const General_intructions_page_container = () => {
+export const General_intructions_page_container = ({seconds}) => {
 
     
 
-    //  const [countdown, setCountdown] = useState(seconds);
-        // const timerId = useRef();
+     const [countdown, setCountdown] = useState(seconds);
+        const timerId = useRef();
 
-        // useEffect(() => {
-        //     if (countdown <= 0) {
-        //         clearInterval(timerId.current);
-        //         alert("End");
-        //     }
-        // }, [countdown]);
-        // const navigate = useNavigate();
-        // const startCountdown = () => {
-        //     timerId.current = setInterval(() => {
-        //         setCountdown((prev) => prev - 1);
-        //     }, 1000);
-        //     navigate('/Paper');
-        // };
+        useEffect(() => {
+            if (countdown <= 0) {
+                clearInterval(timerId.current);
+                alert("End");
+            }
+        }, [countdown]);
+        const navigate = useNavigate();
+        const startCountdown = () => {
+            timerId.current = setInterval(() => {
+                setCountdown((prev) => prev - 1);
+            }, 1000);
+            navigate('/Paper1');
+        };
+        const [isChecked, setIsChecked] = useState(false);
+ 
+        const handleCheckboxChange = (e) => {
+          setIsChecked(e.target.checked);
+        };
+
+
+        const [instructionsData, setInstructionsData] = useState([]);
+        const { testCreationTableId } = useParams();
+      
+        useEffect(() => {
+          const fetchInstructions = async () => {
+            try {
+              const response = await fetch(`http://localhost:4009/fetchinstructions/${testCreationTableId}`);
+              const data = await response.json();
+              setInstructionsData(data);
+            } catch (error) {
+              console.error(error);
+            }
+          };
+      
+          fetchInstructions();
+        }, [testCreationTableId]);
+
+       
+const [subjectId, setSubjectId] = useState([]);
+        const handlePaperData = async (typeOfTestId) => {
+          console.log("working")
+          try {
+            // Fetch tests based on typeOfTestId
+            const response = await fetch(`http://localhost:4009/feachingtestbytype/${typeOfTestId}`);
+            const testData = await response.json();
+            setSubjectId(testData);
+          } catch (error) {
+            console.error(error);
+          }
+        };
+
+
     return (
         <>
-            {General_intructions_page_content.map((gipc, index) => {
+
+<div>
+      <h2>General Instructions</h2>
+      <ul>
+        {instructionsData.map((instruction, index) => (
+          <React.Fragment key={instruction.id}>
+            {index === 0 && (
+              <li>
+                {instruction.instructionHeading}
+              </li>
+            )}
+            <li>
+              {instruction.points}
+            </li>
+      
+          </React.Fragment>
+          
+        ))}
+      </ul>
+      {/* <Link to={`/quiz_all/${testCreationTableId}`}>Start Test</Link> */}
+    </div>
+            {/* {General_intructions_page_content.map((gipc, index) => {
                 return (
                     <div key={index} className="Q_container g_container">
                         <h3>{gipc.gnheading}</h3>
@@ -156,16 +220,56 @@ export const General_intructions_page_container = () => {
                         </ul>
                     </div>
                 );
-            })}
+            })} */}
+
+            {/* {
+                Instructions.map((InstructionsData,index)=>(
+                    <React.Fragment key={InstructionsData.id}>
+                    {index === 0 && (
+                      <li>
+                        {InstructionsData.instructionHeading}
+                      </li>
+                    )}
+                    <li>
+                      {InstructionsData.points}
+                    </li>
+                  </React.Fragment>
+                ))
+            } */}
 
             {/* <div className="gn_next_btn_container">
         <Link to='/' className="intro_next_btn">NEXT <AiOutlineArrowRight/></Link>
       </div> */}
-            <div className="gn_next_btn_container">
-                <button>
-                <Link to='/Paper' element={<Paper/>}  className="gn_next_btn">Iam ready to begin <AiOutlineArrowRight /></Link>
-                </button>
-            </div>
+      <div>
+      {/* <input type="checkbox" onClick={checkbox}/> */}
+     
+      <div className="gn_checkbox">
+      <input type="checkbox" onChange={handleCheckboxChange} className="checkbox" />
+      <p> I agree to these <b> Terms and Conditions.</b></p>
+      </div>
+    </div>
+   
+ <div className="gn_next_btn_container">
+        {isChecked ? (
+            //  to="/Paper1" {`/quiz_all/${testCreationTableId}`}
+          // <Link to={`/getPaperData/${testCreationTableId}/${subjectId}`}  className="gn_next_btn">
+          // <Link to={`/getPaperData/${testCreationTableId}`} onClick={handlePaperData} className="gn_next_btn">
+          // {/* <Link to={`/quiz_all/${testCreationTableId}`}  className="gn_next_btn"> */}
+          //  {/* <Link to={`/quiz_all/${testCreationTableId}`}  className="gn_next_btn"> */}
+          //   I am ready to begin <AiOutlineArrowRight />
+          // </Link>
+          <Link 
+          
+          to={`/getPaperData/${testCreationTableId}`} 
+          onClick={handlePaperData} className="gn_next_btn">
+               I am ready to begin <AiOutlineArrowRight />
+          </Link>
+        ) : (
+          <span className="disabled-link gn_next_btn_bull ">
+            I am ready to begin <AiOutlineArrowRight />
+          </span>
+        )}
+      </div>
         </>
 
     );
