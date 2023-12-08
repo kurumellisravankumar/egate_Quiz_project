@@ -258,10 +258,11 @@ const [subjectId, setSubjectId] = useState([]);
           //  {/* <Link to={`/quiz_all/${testCreationTableId}`}  className="gn_next_btn"> */}
           //   I am ready to begin <AiOutlineArrowRight />
           // </Link>
+          
           <Link 
           
           to={`/getPaperData/${testCreationTableId}`} 
-          onClick={handlePaperData} className="gn_next_btn">
+          className="gn_next_btn">
                I am ready to begin <AiOutlineArrowRight />
           </Link>
         ) : (

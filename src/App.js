@@ -38,8 +38,8 @@ function App() {
         <Route path='/Test_List/:courseCreationId' element={<FullTest />} />
         <Route path='/Instructions/:testCreationTableId' element={<Instructions />} />
         <Route path='/General_intructions_page/:testCreationTableId' element={<General_intructions_page/>}/>
-        <Route path='/DownloadQuizPage' element={<DownloadQuizPage/>} />
-        <Route path='/Document_ImageInfo' element={<Document_ImageInfo/>} />
+        {/* <Route path='/DownloadQuizPage' element={<DownloadQuizPage/>} /> */}
+        {/* <Route path='/Document_ImageInfo' element={<Document_ImageInfo/>} /> */}
        </Routes>
     </BrowserRouter>
 

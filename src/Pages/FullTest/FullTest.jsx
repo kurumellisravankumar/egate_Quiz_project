@@ -1321,13 +1321,137 @@
 
 // export default FullTest;
 
+// import React, { useEffect, useState } from "react";
+// import { useParams, Link } from "react-router-dom";
+// import "../SubjectTest/SubjectTest.css";
+// const FullTest = () => {
+//   const [testData, setTestData] = useState([]);
+//   const [typeOfTest, setTypeOfTest] = useState([]);
+//   const { courseCreationId } = useParams();
+//   useEffect(() => {
+//     const fetchTestData = async () => {
+//       try {
+//         const responseTest = await fetch(
+//           `http://localhost:4009/feachingtest/${courseCreationId}`
+//         );
+//         const testData = await responseTest.json();
+//         setTestData(testData);
+
+//         const responseTypeOfTest = await fetch(
+//           "http://localhost:4009/feachingtypeoftest"
+//         );
+//         const typeOfTestData = await responseTypeOfTest.json();
+//         setTypeOfTest(typeOfTestData);
+//       } catch (error) {
+//         console.error(error);
+//       }
+//     };
+
+//     fetchTestData();
+//   }, [courseCreationId]);
+
+//   const handleTypeOfTestClick = async (typeOfTestId) => {
+//     try {
+//       // Fetch tests based on typeOfTestId
+//       const response = await fetch(
+//         `http://localhost:4009/feachingtestbytype/${typeOfTestId}`
+//       );
+//       const testData = await response.json();
+//       setTestData(testData);
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <ul>
+//         <div className="header-div2">
+//           <div className="header-links">
+//             {typeOfTest.map((type) => (
+//               <li key={type.typeOfTestId}>
+//                 {/* Use the Link to trigger the handleTypeOfTestClick */}
+//                 <Link
+//                   className="content-link"
+//                   to="#"
+//                   onClick={() => handleTypeOfTestClick(type.typeOfTestId)}
+//                 >
+//                   {type.typeOfTestName}
+//                 </Link>
+//               </li>
+//             ))}
+//           </div>
+//         </div>
+//       </ul>
+//       <ul>
+//         {testData.map((test) => (
+//           <>
+//             <div className="test-card">
+//               <li key={test.testCreationTableId}>
+//                 <p className="test-card-header">
+//                   <h3> {test.TestName}</h3>
+               
+//                   <div className="testCard-second-header">
+//                          Available Till: {test.testStartDate} to
+//                          {test.testEndDate}
+//                         </div>
+//                   {/* <li>Test Start Date: {test.testStartDate}</li>
+//                   <li>Test End Date: {test.testEndDate}</li> */}
+//                 </p>
+//                 <div className="test-contents2">
+//                          <span
+//                             // style={myComponentStyle1}
+//                             class="material-symbols-outlined"
+//                           >
+//                             schedule
+//                           </span>{" "}
+//                           <p>{test.Duration} Minutes</p>
+//                         </div>
+//                 <div className="test-contents2">
+//                   <li>
+//                     <Link to={`/Instructions/${test.testCreationTableId}`}>
+//                       start Test
+//                     </Link>
+//                   </li>
+//                 </div>
+//               </li>
+//             </div>
+//           </>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// };
+
+// export default FullTest;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import "../SubjectTest/SubjectTest.css";
+
 const FullTest = () => {
   const [testData, setTestData] = useState([]);
   const [typeOfTest, setTypeOfTest] = useState([]);
   const { courseCreationId } = useParams();
+
   useEffect(() => {
     const fetchTestData = async () => {
       try {
@@ -1352,9 +1476,9 @@ const FullTest = () => {
 
   const handleTypeOfTestClick = async (typeOfTestId) => {
     try {
-      // Fetch tests based on typeOfTestId
+      // Fetch tests based on both courseCreationId and typeOfTestId
       const response = await fetch(
-        `http://localhost:4009/feachingtestbytype/${typeOfTestId}`
+        `http://localhost:4009/feachingtest/${courseCreationId}/${typeOfTestId}`
       );
       const testData = await response.json();
       setTestData(testData);
@@ -1370,7 +1494,6 @@ const FullTest = () => {
           <div className="header-links">
             {typeOfTest.map((type) => (
               <li key={type.typeOfTestId}>
-                {/* Use the Link to trigger the handleTypeOfTestClick */}
                 <Link
                   className="content-link"
                   to="#"
@@ -1385,38 +1508,27 @@ const FullTest = () => {
       </ul>
       <ul>
         {testData.map((test) => (
-          <>
-            <div className="test-card">
-              <li key={test.testCreationTableId}>
-                <p className="test-card-header">
-                  <h3> {test.TestName}</h3>
-               
-                  <div className="testCard-second-header">
-                         Available Till: {test.testStartDate} to
-                         {test.testEndDate}
-                        </div>
-                  {/* <li>Test Start Date: {test.testStartDate}</li>
-                  <li>Test End Date: {test.testEndDate}</li> */}
-                </p>
-                <div className="test-contents2">
-                         <span
-                            // style={myComponentStyle1}
-                            class="material-symbols-outlined"
-                          >
-                            schedule
-                          </span>{" "}
-                          <p>{test.Duration} Minutes</p>
-                        </div>
-                <div className="test-contents2">
-                  <li>
-                    <Link to={`/Instructions/${test.testCreationTableId}`}>
-                      start Test
-                    </Link>
-                  </li>
+          <div className="test-card" key={test.testCreationTableId}>
+            <li>
+              <p className="test-card-header">
+                <h3>{test.TestName}</h3>
+                <div className="testCard-second-header">
+                  Available Till: {test.testStartDate} to {test.testEndDate}
                 </div>
-              </li>
-            </div>
-          </>
+              </p>
+              <div className="test-contents2">
+                <span className="material-symbols-outlined">schedule</span>{" "}
+                <p>{test.Duration} Minutes</p>
+              </div>
+              <div className="test-contents2">
+                <li>
+                  <Link to={`/Instructions/${test.testCreationTableId}`}>
+                    Start Test
+                  </Link>
+                </li>
+              </div>
+            </li>
+          </div>
         ))}
       </ul>
     </div>
