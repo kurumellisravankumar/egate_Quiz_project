@@ -883,7 +883,7 @@ const db = mysql.createPool({
   host: "localhost",
   user: "root",
   password: "",
-  database: "admin_project",
+  database: "TotalQuizdb",
 });
 
 const storage = multer.diskStorage({
@@ -1041,7 +1041,7 @@ app.get('/subjects/:testCreationTableId', async (req, res) => {
   try {
     // Fetch instructions from the database based on testCreationTableId
     const [subjects] = await db.query(
-      'SELECT subjects.subjectName FROM test_creation_table JOIN course_creation_table ON test_creation_table.courseCreationId = course_creation_table.courseCreationId JOIN course_subjects ON course_creation_table.courseCreationId = course_subjects.courseCreationId JOIN Subjects ON course_subjects.subjectId = Subjects.subjectId WHERE test_creation_table.testCreationTableId = ?',
+      'SELECT subjects.subjectName FROM test_creation_table JOIN course_creation_table ON test_creation_table.courseCreationId = course_creation_table.courseCreationId JOIN course_subjects ON course_creation_table.courseCreationId = course_subjects.courseCreationId JOIN subjects ON course_subjects.subjectId = subjects.subjectId WHERE test_creation_table.testCreationTableId = ?',
       [testCreationTableId]
     );
     res.json(subjects);

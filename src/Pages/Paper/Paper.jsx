@@ -1220,12 +1220,13 @@
 import React, { useEffect, useState } from "react";
 import "./Paper.css";
 import PaperHeader from "../../Components/PaperHeader/PaperHeader";
-import RightSidebar from "../../Components/RightSidebar/RightSidebar";
+// import RightSidebar from "../../Components/RightSidebar/RightSidebar";
 // import "../../Components/RightSidebar/RightSidebar.css";
 import { DotSpinner } from "@uiball/loaders";
 import { Link } from "react-router-dom";
 import QuizHome from "../QuizHome/QuizHome";
 import DownloadQuizPage from "../DownloadQuizPage/DownloadQuizPage";
+import RightSidebar from "../RightSidebar/RightSidebar";
 
 const Paper = ({ answeredQuestions }) => {
   const [Qimages, setQImages] = useState([]);

@@ -15,6 +15,10 @@ import Payment from './Pages/Payment/Payment'
 import DownloadQuizPage from './Pages/DownloadQuizPage/DownloadQuizPage'
 import CoursePage from './Pages/HomeLandingPage/CoursePage'
 import Document_ImageInfo from './Pages/Paper/Document_ImageInfo';
+import QuestionsFunctionality from './Pages/MainQuizFunctionality/QuestionsFunctionality';
+import TestResultsPage from './Pages/MainQuizFunctionality/TestResultsPage';
+
+
 
 
 
@@ -30,7 +34,8 @@ function App() {
         <Route path='/feachingcourse/:examId' element={<CoursePage/>} />
           <Route path='/QuizHome' element={<QuizHome/>}/>
         {/* <Route path='/Paper' element={<Paper />} /> */}
-        <Route path='/getPaperData/:testCreationTableId'  element={<Paper1 />} />
+        <Route path='/getPaperData/:testCreationTableId'  element={<QuestionsFunctionality />} />
+        <Route path='/result'  element={<TestResultsPage />} />
         {/* <Route path='/quiz_all/:testCreationTableId'  element={<Paper1 />} /> */}
         <Route path='/Payment'  element={<Payment />} />
         <Route path={'#'} element={<SubjectTest/>} />
