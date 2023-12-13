@@ -1,9 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@100;200;300;400;500;600;700;800&display=swap");
 
 
-.Main-Page{
-  display: flex;
-}
 
 
 
@@ -159,11 +156,12 @@ body {
 } */
 
 .flex-right {
-  /* display: flex;
-    justify-content: flex-end; */
+ position: relative;
+ bottom: -6.5rem;
+ padding: 2rem 0.5rem;
   border-top: 1px solid rgb(182, 178, 178);
   display: flex;
-  gap: 30px;
+  gap: 10px;
 }
 .save-btn {
   margin-left: 400px;
@@ -204,7 +202,7 @@ body {
   font-size: 22px;
 }
 .rightsidebar {
-  position: relative;
+  /* position: relative; */
   top: 60px;
   right: 380px;
   padding: 10px;
@@ -256,4 +254,36 @@ height: 950px; */
   text-align: justify;
   font-size: 20px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+.QUESTIONS_CONTAINER{
+  display: grid;
+  grid-template-columns: 75% 25%;
+}
+
+
+.QUESTIONS_CONTAINER .QUESTIONS_CONTAINER_subpart{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  /* align-items: center; */
+  /* height: 100vh; */
+  /* background-color: #000000; */
+
+}
+
+.QUESTIONS_CONTAINER .QUESTIONS_CONTAINER_subpart ._quizexampart  {
+  width: 95%;
+  margin: 1rem auto;
+}
+.Question_No_heading{
+  font-size: 1.5rem;
+font-weight: 500;
+margin-left: 3rem;
+}
+
+.QUESTIONS_CONTAINER .QUESTIONS_CONTAINER_subpart ._quizexampart .quizexampart_q_O_container  {
+display: flex;
+flex-direction: column;
+gap: 2rem;
 }

@@ -413,7 +413,9 @@ const QuestionsFunctionality = ({ answeredQuestions }) => {
         <div>
             <PaperHeader />
         </div>
-        <div className="subjects">
+        <div className="QUESTIONS_CONTAINER">
+            <div className="QUESTIONS_CONTAINER_subpart">
+            <div className="subjects">
             {Subjects.map((subjectTitle, index) => (
                 <li key={index}>
                     <Link ><button className="subject-btn" onClick={() => handleSubjectSelect(subjectTitle.subjectName)}>{subjectTitle.subjectName}</button></Link>
@@ -422,6 +424,8 @@ const QuestionsFunctionality = ({ answeredQuestions }) => {
             ))}
 
         </div>
+
+
         <div className="second-header">
             <div className="single-select-question">
                 {sections.map((sectionTitle, index) => (
@@ -440,12 +444,16 @@ const QuestionsFunctionality = ({ answeredQuestions }) => {
                 <div>Timer: {formatTime(timer)}</div>
             </div>
         </div>
-        <div>
+
+
+        <div className="Question_No_heading">
             <p>  Question No. {currentQuestionIndex + 1}  of {questionData.length}</p>
         </div>
 
-        {questionData.length > 0 && (
-            <div>
+    
+        <div  className="_quizexampart ">
+{questionData.length > 0 && (
+            <div className="quizexampart_q_O_container">
                 <h4>
                     {/* {currentQuestionIndex + 1}. */}
 
@@ -497,13 +505,11 @@ const QuestionsFunctionality = ({ answeredQuestions }) => {
                 </div>
             </div>
         )}
-
-    </div>
-      )}
-            
+</div>
+            </div>
 
 
-            <div className="rightsidebar">
+<div className="rightsidebar">
                 <ButtonsFunctionality
                     onQuestionSelect={handleQuestionSelect}
                     questionStatus={questionStatus}
@@ -520,6 +526,19 @@ const QuestionsFunctionality = ({ answeredQuestions }) => {
                     Submit
                 </button>
             </div>
+
+        </div>
+     
+       
+      
+      
+
+    </div>
+      )}
+            
+
+
+
         </div>
     )
 }
