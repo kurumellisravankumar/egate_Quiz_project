@@ -102,15 +102,20 @@ const ButtonsFunctionality = ({
     const [isPaused, setIsPaused] = useState(false);
 
 
+    
     const handleButtonClick = (questionNumber) => {
-        // Check if the question is already answered, and return early if true
-        if (questionStatus[questionNumber - 1] === "answered") {
-            return;
-        }
+    
+            // Check if the question is already answered, and return early if true
+            if (questionStatus[questionNumber - 1] === "answered") {
+                // Navigate to the selected question when it's already answered
+                onQuestionSelect(questionNumber);
+                return;
+              }
     
         onQuestionSelect(questionNumber);
         setAnsweredQuestions((prevAnsweredQuestions) => [...prevAnsweredQuestions, questionNumber]);
         setIsPaused(false);
+
     
         setQuestionStatus((prevQuestionStatus) => {
             const currentStatus = prevQuestionStatus[questionNumber - 1];
@@ -122,14 +127,12 @@ const ButtonsFunctionality = ({
                     ...prevQuestionStatus.slice(questionNumber),
                 ];
             }
-    
             // If none of the conditions are met, return the current state
             return prevQuestionStatus;
         });
     
         // Add any other logic or state updates you need
     };
-
 
     ButtonsFunctionality.propTypes = {
         onQuestionSelect: PropTypes.func.isRequired,
