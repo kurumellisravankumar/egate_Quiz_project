@@ -1,5 +1,6 @@
 
 import { useLocation } from 'react-router-dom';
+import "../RightSidebar/RightSidebar.css";
 
 
 
@@ -32,8 +33,8 @@ const TestResultsPage = () => {
 
   
     return (
-      <div>
-        <h1>You have completed you exam</h1>
+      <div className='TestResultPage'>
+        <h1 className='TestHeading'>You have completed you exam</h1>
         <h2>Test Results</h2>
         <p>Answered Questions: {answeredCount}</p>
         <p>Not Answered Questions: {notAnsweredCount}</p>

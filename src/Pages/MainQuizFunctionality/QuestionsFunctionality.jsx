@@ -185,9 +185,6 @@ const QuestionsFunctionality = ({ answeredQuestions }) => {
         updatedSelectedAnswers[activeQuestion] = OptionLetter;
         setSelectedAnswers(updatedSelectedAnswers);
 
-        const updatedQuestionStatus = [...questionStatus];
-        updatedQuestionStatus[activeQuestion] = "answered";
-        setQuestionStatus(updatedQuestionStatus);
     };
 
     const [activeQuestion, setActiveQuestion] = useState(0);
@@ -212,13 +209,25 @@ const QuestionsFunctionality = ({ answeredQuestions }) => {
 
 
 
-
     const clearResponse = () => {
+        // Clear the selected answer
         const updatedSelectedAnswers = [...selectedAnswers];
         updatedSelectedAnswers[currentQuestionIndex] = "";
         setSelectedAnswers(updatedSelectedAnswers);
+    
+        // Update the question status to "notAnswered"
+        setQuestionStatus((prevQuestionStatus) => {
+            const currentStatus = prevQuestionStatus[currentQuestionIndex];
+            if (currentStatus === "answered") {
+                return [
+                    ...prevQuestionStatus.slice(0, currentQuestionIndex),
+                    "notAnswered",
+                    ...prevQuestionStatus.slice(currentQuestionIndex + 1),
+                ];
+            }
+            return prevQuestionStatus;
+        });
     };
-
 
     // const goToPreviousQuestion = () => {
     //     setCurrentQuestionIndex((prevIndex) => {
@@ -285,6 +294,8 @@ const QuestionsFunctionality = ({ answeredQuestions }) => {
 
         updateCounters();
 
+
+
         // Set status of the next question (if any) to "notAnswered"
 
         if (activeQuestion < questionData.length - 1) {
@@ -310,6 +321,22 @@ const QuestionsFunctionality = ({ answeredQuestions }) => {
             setQuestionStatus(updatedQuestionStatus);
         }
 
+
+
+            // Update the question status to "answered" only if an answer has been selected
+    if (selectedAnswers[activeQuestion]) {
+        setQuestionStatus((prevQuestionStatus) => {
+            const currentStatus = prevQuestionStatus[activeQuestion];
+            if (currentStatus === "notAnswered") {
+                return [
+                    ...prevQuestionStatus.slice(0, activeQuestion),
+                    "answered",
+                    ...prevQuestionStatus.slice(activeQuestion + 1),
+                ];
+            }
+            return prevQuestionStatus;
+        });
+    }
 
     };
 

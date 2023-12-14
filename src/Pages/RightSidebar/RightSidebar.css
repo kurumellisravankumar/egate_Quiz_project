@@ -1,14 +1,14 @@
 
  .right_bar_Buttons {
     background: azure;
-    /* padding: 0.6rem;
-     */
     width:40px;
 height: 35px;
     border: none;
     border-radius: 5px;
 
 }
+
+
 
 
 .right-side-bar {
@@ -140,4 +140,9 @@ height: 35px;
     border-radius: 5px;
     padding: 9px;   
     background: red;
+}
+
+
+.TestResultPage .TestHeading{
+    text-align: center;
 }

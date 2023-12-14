@@ -103,34 +103,32 @@ const ButtonsFunctionality = ({
 
 
     const handleButtonClick = (questionNumber) => {
+        // Check if the question is already answered, and return early if true
+        if (questionStatus[questionNumber - 1] === "answered") {
+            return;
+        }
+    
         onQuestionSelect(questionNumber);
-        setAnsweredQuestions([...answeredQuestions, questionNumber]);
+        setAnsweredQuestions((prevAnsweredQuestions) => [...prevAnsweredQuestions, questionNumber]);
         setIsPaused(false);
     
-        const currentStatus = questionStatus[questionNumber - 1];
+        setQuestionStatus((prevQuestionStatus) => {
+            const currentStatus = prevQuestionStatus[questionNumber - 1];
     
-        if (currentStatus === "notVisited") {
-            // Mark the question as "not answered" initially when visited for the first time
-            const updatedQuestionStatus = [...questionStatus];
-            updatedQuestionStatus[questionNumber - 1] = "notAnswered";
-            setQuestionStatus(updatedQuestionStatus);
-            console.log(`Question ${questionNumber} was not answered.`);
-        } else if (currentStatus === "marked") {
-            // Mark the question as "Marked for review" by default if not visited
-            const updatedQuestionStatus = [...questionStatus];
-            updatedQuestionStatus[questionNumber - 1] = "markedForReview";
-            setQuestionStatus(updatedQuestionStatus);
-            console.log(`Question ${questionNumber} was marked for review.`);
-        } else if (currentStatus !== "answered") {
-            // Mark the question as "answered" only if it was not answered before
-            const updatedQuestionStatus = [...questionStatus];
-            updatedQuestionStatus[questionNumber - 1] = "answered";
-            setQuestionStatus(updatedQuestionStatus);
-            console.log(`Question ${questionNumber} was answered.`);
-        }
+            if (currentStatus === "notVisited") {
+                return [
+                    ...prevQuestionStatus.slice(0, questionNumber - 1),
+                    "notAnswered",
+                    ...prevQuestionStatus.slice(questionNumber),
+                ];
+            }
+    
+            // If none of the conditions are met, return the current state
+            return prevQuestionStatus;
+        });
+    
         // Add any other logic or state updates you need
     };
-
 
 
     ButtonsFunctionality.propTypes = {
