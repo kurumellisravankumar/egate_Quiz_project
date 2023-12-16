@@ -23,8 +23,8 @@ const ButtonsFunctionality = ({
     markedForReviewCount,
     VisitedCount,
     selectedSubject,
-    questionData, 
     updateButtonStatus,
+    data
 }) => {
 
 
@@ -38,8 +38,8 @@ const ButtonsFunctionality = ({
 
     ];
 
-
-    const renderQuestionButtons = questionData.map((question, index) => {
+    const renderQuestionButtons = Array.isArray(data.questions) 
+    ? data.questions.map((question, index) => {
 
         let className = "right_bar_Buttons ";
         if (questionStatus && questionStatus[index] === "answered") {
@@ -70,7 +70,8 @@ const ButtonsFunctionality = ({
                 </button>
             </li>
         );
-    });
+    })
+    : null;
 
 
     const renderSectionButtons = () => {
@@ -81,7 +82,7 @@ const ButtonsFunctionality = ({
 
 
         console.log("Filtered Sections:", filteredSections);
-        console.log("Question Data:", questionData);
+        console.log("Question Data:", data.questions);
         // Render buttons for filteredSections
         return filteredSections.map((section, index) => (
             <li key={index}>
@@ -205,16 +206,6 @@ const ButtonsFunctionality = ({
         return `${hours > 9 ? hours : "0" + hours}:${minutes > 9 ? minutes : "0" + minutes
             }:${remainingSeconds > 9 ? remainingSeconds : "0" + remainingSeconds}`;
     };
-
-
-
-
-
-
-
-
-
-
 
 
 

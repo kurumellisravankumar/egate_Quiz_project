@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import HomeLandingPage from './Pages/HomeLandingPage/HomeLandingPage'
 
+
+
 import QuizHome from './Pages/QuizHome/QuizHome'
 import Paper1 from './Pages/Paper/Paper1'
 // import Paper1 from './Pages/Paper/Paper1'
@@ -17,6 +19,7 @@ import CoursePage from './Pages/HomeLandingPage/CoursePage'
 import Document_ImageInfo from './Pages/Paper/Document_ImageInfo';
 import QuestionsFunctionality from './Pages/MainQuizFunctionality/QuestionsFunctionality';
 import TestResultsPage from './Pages/MainQuizFunctionality/TestResultsPage';
+import Radius from './Pages/Paper/Radius';
 
 
 
@@ -29,7 +32,13 @@ function App() {
     <BrowserRouter>
     {/* <Instructions/> */}
        <Routes>
+   
+
+
         <Route path='/' element={<HomeLandingPage/>}/> 
+        {/* <Route path='/' element={<Radius/>}/>  */}
+
+
         {/* <Route path='/CoursePage/:examId' element={<CoursePage/>} /> */}
         <Route path='/feachingcourse/:examId' element={<CoursePage/>} />
           <Route path='/QuizHome' element={<QuizHome/>}/>
